@@ -19,7 +19,6 @@ class Graphes:
       self.G=nx.gnm_random_graph(n_, m_)
     else :
       self.G=nx.barabasi_albert_graph(n_, m_)
-    print "Nb edges : ",nx.number_of_edges(self.G)
     self.Pk=self.calcul_Pk()
     self.Ck=self.calcul_Ck()
   
@@ -37,3 +36,11 @@ class Graphes:
       C[i]+=nx.clustering(self.G,c)
     C=np.asarray(C)*1.0/nx.number_of_nodes(self.G)
     return C
+
+  def stat_Ck(self):
+    CKtheo=[0]*len(self.Ck)
+    for i in range(1,len(self.Ck)):
+      CKtheo[i]=i**(-1)
+    X=[(self.Ck[i]-CKtheo[i])**2 for i in range(1,len(self.Ck))]
+    Xsum=sum(X)
+    return stat_Ck
