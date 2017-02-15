@@ -40,4 +40,12 @@ class Graphes:
       CKtheo[i]=i**(-1)
     X=[(self.Ck[i]-CKtheo[i])**2 for i in range(1,len(self.Ck))]
     Xsum=sum(X)
-    return stat_Ck
+    return Xsum
+  
+  def stat_Pk(self,gamma):
+    PKtheo=[0]*len(self.Pk)
+    for i in range(1,len(self.Pk)):
+      PKtheo[i]=i**(-gamma)
+    X=[(self.Pk[i]-PKtheo[i])**2 for i in range(1,len(self.Pk))]
+    Xsum=sum(X)
+    return Xsum
