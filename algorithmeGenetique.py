@@ -3,7 +3,54 @@
 #///////////////////////////////////////////////////////////////////////
 
 
-
-#//////////////////////// IMPORTS //////////////////////////////////////
+#///// IMPORTS /////////////////////////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
 
+
+
+
+
+#///// LA CLASSE ET SES METHODES ///////////////////////////////////////
+#///////////////////////////////////////////////////////////////////////
+
+class algorithmeGenetique :
+    
+    def __init__(self, pop_, gamma_, nombreIterations_) :
+        self.pop = pop_ # Number of nodes
+        self.gamma = gamma_ # Number of edges
+        self.nombreIterations = nombreIterations_
+
+    #///// Recuperation des parametres /////
+    def enterParameters(self, field):
+        
+        
+
+    def generePopInit( ):
+
+
+
+
+
+#///// FICHIERS LUS ET ECRITS //////////////////////////////////////////
+#///////////////////////////////////////////////////////////////////////
+
+fichierparam = 'parametresEntres.txt'
+fichierOutput = 'outputGamma + str(self.gamma) + '.txt'
+
+## Ouverture du fichier ##
+fichierparam = open(field,'rb')
+enter = fichierparam.readlines()
+param = [0]*(len(enter)-5)
+
+for i in xrange(5,len(enter)):
+    param[i-5] = int(enter[i].split("\t")[0])     #Nombre d'iterations
+
+## Affectation des parametres ##
+nombreIterations_ = param[0]     #Nombre d'iterations
+gamma_ = param[1]
+nombreGraphesPopInit_ = param[2]
+seuilSelection_ = param[3]        
+
+
+#///// APPEL ///////////////////////////////////////////////////////////
+#///////////////////////////////////////////////////////////////////////

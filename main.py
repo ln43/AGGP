@@ -3,7 +3,7 @@
 from Graphes import Graphes
 import networkx as nx
 import matplotlib.pyplot as plt
-from scipy import stats
+#from scipy import stats
 import numpy as np
 
 #//////////////////////// MAIN //////////////////////////////////////
