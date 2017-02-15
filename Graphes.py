@@ -12,13 +12,10 @@ import numpy as np
 #///////////////////////// CLASSE //////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
 class Graphes:
-  def __init__(self,n_,m_,x):
+  def __init__(self,n_,m_):
     self.n=n_ # Number of nodes
     self.m=m_ # Number of edges
-    if x==1:
-      self.G=nx.gnm_random_graph(n_, m_)
-    else :
-      self.G=nx.barabasi_albert_graph(n_, m_)
+    self.G=nx.gnm_random_graph(n_, m_)
     self.Pk=self.calcul_Pk()
     self.Ck=self.calcul_Ck()
   
