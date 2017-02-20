@@ -3,10 +3,6 @@
 from Graphes import Graphes
 import networkx as nx
 import matplotlib.pyplot as plt
-<<<<<<< HEAD
-#from scipy import stats
-=======
->>>>>>> origin/master
 import numpy as np
 
 #//////////////////////// MAIN //////////////////////////////////////

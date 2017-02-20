@@ -49,3 +49,9 @@ class Graphes:
     X=[(self.Pk[i]-PKtheo[i])**2 for i in range(1,len(self.Pk))]
     Xsum=sum(X)
     return Xsum
+  
+  def calcul_cout(self,gamma):
+    statPk=self.stat_Pk(gamma)
+    statCk=self.stat_Ck()
+    #statchemin
+    return statPk+statCk
