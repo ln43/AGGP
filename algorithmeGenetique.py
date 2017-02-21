@@ -34,9 +34,9 @@ class algorithmeGenetique :
       return population(Pop,self.gamma,seuilSelection)
 
     def loop(self):
-      P_mut=self.pop.mutation()
-      P_crois=self.pop.croisement(P_mut)
-      self.pop.majPopulation(P_crois)
+      P_crois=self.pop.croisement()
+      P_mut=self.pop.mutation(P_crois)
+      self.pop.majPopulation(P_mut)
       
 
 
@@ -63,5 +63,16 @@ class algorithmeGenetique :
 
 #///// APPEL ///////////////////////////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
-A=algorithmeGenetique(2.5,10,15,5,2,100)
+A=algorithmeGenetique(2.5,10,20,10,2,100)
 print A.pop.calculFitness()
+X=A.pop.triFitness()
+Y=[]
+for i in range(len(X)):
+  Y.append(X[i].calcul_cout(2.5))
+print Y
+X=A.pop.selectionPiresFitness()
+Y=[]
+for i in range(len(X)):
+  Y.append(X[i].calcul_cout(2.5))
+print Y
+  
