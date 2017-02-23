@@ -36,3 +36,8 @@ print "Lancement du Main"
 #Gtry=nx.gnm_random_graph(10,15)
 
 
+#Essai Yasmine Petit monde
+Gr=Graphes(15,50)
+nx.draw(Gr.G)
+plt.show()
+print Gr.Dmin

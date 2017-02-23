@@ -18,6 +18,7 @@ class Graphes:
     self.G=nx.gnm_random_graph(n_, m_)
     self.Pk=self.calcul_Pk()
     self.Ck=self.calcul_Ck()
+    self.Dmin=self.calcul_Dmin()
   
   def calcul_Pk(self):
     P=[0 for i in range(max(nx.degree(self.G).values())+1)]
@@ -55,3 +56,7 @@ class Graphes:
     statCk=self.stat_Ck()
     #statchemin
     return statPk+statCk
+    
+  def calcul_Dmin(self):
+			Dm=nx.shortest_path_length(self.G)
+			return Dm
