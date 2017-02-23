@@ -35,7 +35,16 @@ print "Lancement du Main"
 
 
 #Essai Yasmine Petit monde
-Gr=Graphes(15,50)
-nx.draw(Gr.G)
-plt.show()
-print Gr.Dmin
+#Gr=Graphes(15,50)
+#nx.draw(Gr.G)
+#plt.show()
+#print Gr.Dmin
+#print '----'
+#print Gr.Dmin[1]
+#print '----'
+#print Gr.Dmin[1][1]
+#print '----'
+#print len(Gr.Dmin)
+#for cle in dico.keys()
+	#print cle
+
