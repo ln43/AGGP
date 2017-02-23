@@ -30,6 +30,7 @@ print Xsum
 
 print Gr.stat_Pk(gamma)
 
+
 #Gtry=nx.gnm_random_graph(10,15)
 
 
