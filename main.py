@@ -31,11 +31,6 @@ print "Lancement du Main"
 #print Xsum
 #
 #print Gr.stat_Pk(gamma)
-<<<<<<< HEAD
-
-=======
->>>>>>> 1b260d3a15072fb0dce8537cf9ab7370777acc05
-
 #Gtry=nx.gnm_random_graph(10,15)
 
 

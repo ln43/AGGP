@@ -56,10 +56,7 @@ class Graphes:
     statCk=self.stat_Ck()
     #statchemin
     return statPk+statCk
-<<<<<<< HEAD
     
   def calcul_Dmin(self):
 			Dm=nx.shortest_path_length(self.G)
 			return Dm
-=======
->>>>>>> 1b260d3a15072fb0dce8537cf9ab7370777acc05
