@@ -71,8 +71,6 @@ class population :
                 newg1.add_edge(int(e[0]),int(e[1]))
                 i=i+1
             g.G=nx.convert_node_labels_to_integers(newg1)
-            nx.draw(g.G)
-            plt.show()
             
             i=0
             while i<m2 and nx.number_of_edges(newg2)<(nx.number_of_nodes(newg2)*(nx.number_of_nodes(newg2)-1)/2):
@@ -82,7 +80,6 @@ class population :
                 i=i+1
             g2.G=nx.convert_node_labels_to_integers(newg2)
         return popSelectionnee
-        #Scinder en deux sous-graphes et faire echanger ces sous-graphes.
         
     def mutation(self,popCroisee,pMut):
         
