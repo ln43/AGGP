@@ -31,7 +31,20 @@ print "Lancement du Main"
 #print Xsum
 #
 #print Gr.stat_Pk(gamma)
-
 #Gtry=nx.gnm_random_graph(10,15)
 
+
+#Essai Yasmine Petit monde
+#Gr=Graphes(15,50)
+#nx.draw(Gr.G)
+#plt.show()
+#print Gr.Dmin
+#print '----'
+#print Gr.Dmin[1]
+#print '----'
+#print Gr.Dmin[1][1]
+#print '----'
+#print len(Gr.Dmin)
+#for cle in dico.keys()
+	#print cle
 
