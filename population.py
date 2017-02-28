@@ -18,6 +18,7 @@ class population :
         self.seuilSelection = seuilSelection_  #Seuil de selection
      
     def calculFitness(self):
+        ##### Rajouter mis a jour Pk,Ck,chemin de chaque graphe a chaque pas de temps
         fitnessPop = []
         for i in xrange(len(self.pop)) :
             fitnessPop.append(self.pop[i].calcul_cout(self.gamma))
@@ -71,6 +72,7 @@ class population :
                 newg1.add_edge(int(e[0]),int(e[1]))
                 i=i+1
             g.G=nx.convert_node_labels_to_integers(newg1)
+            g.n,g.m=nx.number_of_nodes(g.G),nx.number_of_edges(g.G)
             
             i=0
             while i<m2 and nx.number_of_edges(newg2)<(nx.number_of_nodes(newg2)*(nx.number_of_nodes(newg2)-1)/2):
@@ -79,14 +81,25 @@ class population :
                 newg2.add_edge(int(e[0]),int(e[1]))
                 i=i+1
             g2.G=nx.convert_node_labels_to_integers(newg2)
+            g2.n,g2.m=nx.number_of_nodes(g2.G),nx.number_of_edges(g2.G)
         return popSelectionnee
         
-    def mutation(self,popCroisee,pMut):
-        
-        #for ind in xrange(len(popSelectionnee)):              #Pour chaque individu selectionne
-            #for graphe in xrange(len(popSelectionnee[ind])):    #Pour chaque gene de son genome
-                #if Tm > np.random.random() :                         #Tirage de la probabilite de muter
-                #    popSelectionnee[ind][gene] *= (-1)        #Mutation, 1 devient -1 et inversement
+    def mutation(self,popCroisee,pmut):
+      for ind in popCroisee:              #Pour chaque individu selectionne
+        if np.random.random()<pmut: #Tirage de la probabilite de muter
+          ind.G.add_nodes(ind.n)
+          Deg=0
+          for d in ind.G.degree().values():
+            Deg=Deg+d
+          print Deg
+          k=2 # peut-etre a passer en param
+          ind.G.add_node(ind.n)
+          ind.n=ind.n+1
+          for n in Gr.G.nodes():
+            if np.random.random()<(k*ind.G.degree(n)*1.0/Deg):
+              ind.G.add_edge(n,ind.n-1)
+              Deg+=1
+          ind.m=nx.number_of_edges(Gr.G)        
         return popCroisee
     
     def majPopulation(pop):

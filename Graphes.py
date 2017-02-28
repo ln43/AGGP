@@ -34,6 +34,16 @@ class Graphes:
       C[i]+=nx.clustering(self.G,c)
     C=np.asarray(C)*1.0/nx.number_of_nodes(self.G)
     return C
+    
+  def calcul_Dmin(self):
+			Dm=nx.shortest_path_length(self.G)
+			L=len(Dm)
+			l=len(Dm[1])
+			matrixMin=np.zeros((L,l))
+			for i in range(0,L):
+				for j in range(0,l):
+					matrixMin[i,j]=Dm[i][j] 
+			return matrixMin
 
   def stat_Ck(self):
     CKtheo=[0]*len(self.Ck)
@@ -57,12 +67,4 @@ class Graphes:
     #statchemin
     return statPk+statCk
     
-  def calcul_Dmin(self):
-			Dm=nx.shortest_path_length(self.G)
-			L=len(Dm)
-			l=len(Dm[1])
-			matrixMin=np.zeros((L,l))
-			for i in range(0,L):
-				for j in range(0,l):
-					matrixMin[i,j]=Dm[i][j] 
-			return matrixMin
+
