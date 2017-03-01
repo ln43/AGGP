@@ -37,13 +37,13 @@ class Graphes:
     
   def calcul_Dmin(self):
 			Dm=nx.shortest_path_length(self.G)
-			L=len(Dm)
-			l=len(Dm[1])
-			matrixMin=np.zeros((L,l))
-			for i in range(0,L):
-				for j in range(0,l):
-					matrixMin[i,j]=Dm[i][j] 
-			return matrixMin
+			#~ L=len(Dm)
+			#~ l=len(Dm[1])
+			#~ matrixMin=np.zeros((L,l))
+			#~ for i in range(0,L):
+				#~ for j in range(0,l):
+					#~ matrixMin[i,j]=Dm[i][j] 
+			return Dm
 
   def stat_Ck(self):
     CKtheo=[0]*len(self.Ck)
@@ -61,10 +61,10 @@ class Graphes:
     Xsum=sum(X)
     return Xsum
   
-  def calcul_cout(self,gamma):
+  def calcul_cout(self,gamma, ponderation):
     statPk=self.stat_Pk(gamma)
     statCk=self.stat_Ck()
     #statchemin
-    return statPk+statCk
+    return ponderation[0]*statPk+ponderation[1]*statCk+ ponderation[2]
     
 

@@ -17,15 +17,15 @@ class population :
         self.gamma=gamma_
         self.seuilSelection = seuilSelection_  #Seuil de selection
      
-    def calculFitness(self):
+    def calculFitness(self, ponderation):
         ##### Rajouter mis a jour Pk,Ck,chemin de chaque graphe a chaque pas de temps
         fitnessPop = []
         for i in xrange(len(self.pop)) :
-            fitnessPop.append(self.pop[i].calcul_cout(self.gamma))
+            fitnessPop.append(self.pop[i].calcul_cout(self.gamma, ponderation))
         return fitnessPop
     
-    def triFitness(self):
-        fitnessPop = self.calculFitness()
+    def triFitness(self, ponderation):
+        fitnessPop = self.calculFitness(ponderation)
         index = np.argsort(fitnessPop) #Indices des genomes dans ordre croissant
 
         popTriee = []     #Tableau des genomes de la population triee, TxN
@@ -33,15 +33,15 @@ class population :
             popTriee.append(self.pop[index[j]])
         return popTriee     #Classes dans ordre croissant de cout
 
-    def selectionPiresFitness(self):
-        popTriee = self.triFitness()
+    def selectionPiresFitness(self,ponderation):
+        popTriee = self.triFitness(ponderation)
         popSelectionnee = []      #Tableau des genomes de la population selectionnee TxNs
         for i in range(self.seuilSelection) :
             popSelectionnee.append(popTriee[self.Npop-1-i])     #Selectionne les cout les plus eleves
         return popSelectionnee     
             
-    def croisement(self,pCrois):
-        popSelectionnee = self.selectionPiresFitness(self.pop)
+    def croisement(self,pCrois,ponderation):
+        popSelectionnee = self.selectionPiresFitness(ponderation)
         for g in popSelectionnee:
           proba=np.random.random()
           if proba<pCrois:

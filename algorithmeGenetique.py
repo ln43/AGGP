@@ -67,16 +67,17 @@ class algorithmeGenetique :
 
 #///// APPEL ///////////////////////////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
-A=algorithmeGenetique(2.5,10,20,10,2,100)
-print A.pop.calculFitness()
-X=A.pop.triFitness()
+p=[1,2,3]
+A=algorithmeGenetique(2.5,10,20,10,2,100,p)
+print A.pop.calculFitness(p)
+X=A.pop.triFitness(p)
 Y=[]
 for i in range(len(X)):
-  Y.append(X[i].calcul_cout(2.5))
+  Y.append(X[i].calcul_cout(2.5, p))
 print Y
-X=A.pop.selectionPiresFitness()
+X=A.pop.selectionPiresFitness(p)
 Y=[]
 for i in range(len(X)):
-  Y.append(X[i].calcul_cout(2.5))
+  Y.append(X[i].calcul_cout(2.5, p))
 print Y
   
