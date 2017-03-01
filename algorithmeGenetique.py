@@ -19,13 +19,24 @@ import matplotlib.pyplot as plt
 
 class algorithmeGenetique :
     
+<<<<<<< HEAD
     def __init__(self,gamma_,n,m,Npop,seuilSelection_,nombreIterations_,pCrois_) :
+=======
+    def __init__(self,gamma_,n,m,Npop,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_) :
+>>>>>>> origin/master
         
         self.gamma = gamma_ 
         self.nombreIterations = nombreIterations_
         self.pop = self.generePopInit(n,m,Npop,seuilSelection_)
+<<<<<<< HEAD
         self.seuilSelection = seuilSelection_
         self.pCrois = pCrois_
+=======
+        self.ponderation=ponderation_
+        self.pmut=pmut_
+        self.pcrois=pcrois_
+        self.kmut=kmut_
+>>>>>>> origin/master
         
 #    ///// Recuperation des parametres /////
 #    def enterParameters(self, field):
@@ -41,7 +52,7 @@ class algorithmeGenetique :
 #    ///// Execution de l'algorithme /////
     def loop(self):
       P_crois=self.pop.croisement(1)
-      P_mut=self.pop.mutation(P_crois,1)
+      P_mut=self.pop.mutation(P_crois,1,k)
       self.pop.majPopulation(P_mut)
 
 #-----------------------------------------------------------------------
@@ -72,7 +83,7 @@ class algorithmeGenetique :
 
 #///// APPEL ///////////////////////////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
-A=algorithmeGenetique(2.5,10,20,10,2,100)
+A=algorithmeGenetique(2.2,10,20,10,4,100,[1,1,1],1,1,2)
 print A.pop.calculFitness()
 X=A.pop.triFitness()
 Y=[]

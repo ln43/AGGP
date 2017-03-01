@@ -92,17 +92,22 @@ class population :
             g2.n,g2.m=nx.number_of_nodes(g2.G),nx.number_of_edges(g2.G)
         return popMutee
         
+<<<<<<< HEAD
     #///// Mutation de la portion selectionnee de la population ///// 
     def mutation(self):
       popSelectionnee = self.selectionPiresFitness(self.pop)
       for ind in popSelectionnee :              #Pour chaque individu selectionne
         if np.random.random()<self.pmut: #Tirage de la probabilite de muter
+=======
+    def mutation(self,popCroisee,pmut,k):
+      for ind in popCroisee:              #Pour chaque individu selectionne
+        if np.random.random()<pmut: #Tirage de la probabilite de muter
+>>>>>>> origin/master
           ind.G.add_nodes(ind.n)
           Deg=0
           for d in ind.G.degree().values():
             Deg=Deg+d
           print Deg
-          k=2 # peut-etre a passer en param
           ind.G.add_node(ind.n)
           ind.n=ind.n+1
           for n in Gr.G.nodes():
