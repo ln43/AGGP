@@ -18,11 +18,15 @@ import matplotlib.pyplot as plt
 
 class algorithmeGenetique :
     
-    def __init__(self,gamma_,n,m,Npop,seuilSelection_,nombreIterations_) :
+    def __init__(self,gamma_,n,m,Npop,seuilSelection_,nombreIterations_,ponderation_) :
         
         self.gamma = gamma_ 
         self.nombreIterations = nombreIterations_
-        self.pop = self.generePopInit(n,m,Npop,seuilSelection_) 
+        self.pop = self.generePopInit(n,m,Npop,seuilSelection_)
+        self.ponderation=ponderation_
+        #self.pmut
+        
+        #ponderation des couts, probabilite de mutation et de croisement, k pour mutation
         
 #    ///// Recuperation des parametres /////
 #    def enterParameters(self, field):
