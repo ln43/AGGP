@@ -7,6 +7,7 @@
 #///////////////////////////////////////////////////////////////////////
 from Graphes import Graphes
 import numpy as np
+import networkx as nx
 #///// LA CLASSE ET SES METHODES ///////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
 
@@ -41,12 +42,12 @@ class population :
         return popSelectionnee     
             
     def croisement(self,pCrois):
-        popSelectionnee = self.selectionPiresFitness(self.pop)
+        popSelectionnee = self.selectionPiresFitness()
         for g in popSelectionnee:
           proba=np.random.random()
           if proba<pCrois:
             i=np.random.randint(0,len(popSelectionnee))
-            while (popSelectionnee[i]==g).all():
+            while (popSelectionnee[i]==g):
                 i=np.random.randint(0,len(popSelectionnee))
             g2=popSelectionnee[i]
             noeuds1=np.random.choice(g.G.nodes(),int(g.n/2),replace=False)
@@ -85,21 +86,21 @@ class population :
         return popSelectionnee
         
     def mutation(self,popCroisee,pmut,k):
-      for ind in popCroisee:              #Pour chaque individu selectionne
+      for ind in popCroisee:            #Pour chaque individu selectionne
+        print ind
         if np.random.random()<pmut: #Tirage de la probabilite de muter
-          ind.G.add_nodes(ind.n)
+          ind.G.add_node(ind.n)
           Deg=0
           for d in ind.G.degree().values():
             Deg=Deg+d
-          print Deg
           ind.G.add_node(ind.n)
           ind.n=ind.n+1
-          for n in Gr.G.nodes():
+          for n in ind.G.nodes():
             if np.random.random()<(k*ind.G.degree(n)*1.0/Deg):
               ind.G.add_edge(n,ind.n-1)
               Deg+=1
-          ind.m=nx.number_of_edges(Gr.G)        
-        return popCroisee
+          ind.m=nx.number_of_edges(ind.G)        
+      return popCroisee
     
     def majPopulation(pop):
         popTriee = self.triFitness(self.pop)

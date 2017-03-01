@@ -19,7 +19,6 @@ import matplotlib.pyplot as plt
 class algorithmeGenetique :
     
     def __init__(self,gamma_,n,m,Npop,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_) :
-        
         self.gamma = gamma_ 
         self.nombreIterations = nombreIterations_
         self.pop = self.generePopInit(n,m,Npop,seuilSelection_)
@@ -67,16 +66,38 @@ class algorithmeGenetique :
 
 #///// APPEL ///////////////////////////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
-A=algorithmeGenetique(2.2,10,20,10,4,100,[1,1,1],1,1,2)
-print A.pop.calculFitness()
+A=algorithmeGenetique(2.2,10,20,10,2,100,[1,1,1],1,1,2)
+
+
+# Essais methodes 
+print "Fitness init : ",A.pop.calculFitness()
+
 X=A.pop.triFitness()
 Y=[]
 for i in range(len(X)):
   Y.append(X[i].calcul_cout(2.5))
-print Y
+print "Fitness triees : ", Y
+
 X=A.pop.selectionPiresFitness()
 Y=[]
 for i in range(len(X)):
   Y.append(X[i].calcul_cout(2.5))
-print Y
+print "Pires fitness : ",Y
+
+X=A.pop.croisement(1)
+
+plt.subplot(221)
+nx.draw(X[0].G)
+plt.subplot(222)
+nx.draw(X[1].G)
+
+X2=A.pop.mutation(X,1,2)
+
+plt.subplot(223)
+nx.draw(X2[0].G)
+plt.subplot(224)
+nx.draw(X2[1].G)
+
+plt.show()
+
   
