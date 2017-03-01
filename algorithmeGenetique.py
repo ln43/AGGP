@@ -35,7 +35,7 @@ class algorithmeGenetique :
 
     def loop(self):
       P_crois=self.pop.croisement(1)
-      P_mut=self.pop.mutation(P_crois,1)
+      P_mut=self.pop.mutation(P_crois,1,k)
       self.pop.majPopulation(P_mut)
       
 

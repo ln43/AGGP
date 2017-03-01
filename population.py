@@ -84,7 +84,7 @@ class population :
             g2.n,g2.m=nx.number_of_nodes(g2.G),nx.number_of_edges(g2.G)
         return popSelectionnee
         
-    def mutation(self,popCroisee,pmut):
+    def mutation(self,popCroisee,pmut,k):
       for ind in popCroisee:              #Pour chaque individu selectionne
         if np.random.random()<pmut: #Tirage de la probabilite de muter
           ind.G.add_nodes(ind.n)
@@ -92,7 +92,6 @@ class population :
           for d in ind.G.degree().values():
             Deg=Deg+d
           print Deg
-          k=2 # peut-etre a passer en param
           ind.G.add_node(ind.n)
           ind.n=ind.n+1
           for n in Gr.G.nodes():
