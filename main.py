@@ -8,28 +8,28 @@ import numpy as np
 #//////////////////////// MAIN //////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
 print "Lancement du Main"
-Gr=Graphes(5,10)
-nx.draw(Gr.G)
-plt.show()
+#~ Gr=Graphes(5,10)
+#~ nx.draw(Gr.G)
+#~ plt.show()
 
-Deg=0
-for d in Gr.G.degree().values():
-  Deg=Deg+d
-print Deg
+#~ Deg=0
+#~ for d in Gr.G.degree().values():
+  #~ Deg=Deg+d
+#~ print Deg
 
-k=2
-Gr.G.add_node(nx.number_of_nodes(Gr.G))
-Gr.n=Gr.n+1
-for n in Gr.G.nodes():
-  print k*Gr.G.degree(n)*1.0/Deg
-  if np.random.random()<(k*Gr.G.degree(n)*1.0/Deg):
-    print True
-    Gr.G.add_edge(n,Gr.n-1)
-    Deg+=1
-Gr.m=nx.number_of_edges(Gr.G)
+#~ k=2
+#~ Gr.G.add_node(nx.number_of_nodes(Gr.G))
+#~ Gr.n=Gr.n+1
+#~ for n in Gr.G.nodes():
+  #~ print k*Gr.G.degree(n)*1.0/Deg
+  #~ if np.random.random()<(k*Gr.G.degree(n)*1.0/Deg):
+    #~ print True
+    #~ Gr.G.add_edge(n,Gr.n-1)
+    #~ Deg+=1
+#~ Gr.m=nx.number_of_edges(Gr.G)
 
-nx.draw(Gr.G)
-plt.show()
+#~ nx.draw(Gr.G)
+#~ plt.show()
 
 #Essais Helene
 
@@ -54,10 +54,13 @@ plt.show()
 #Gtry=nx.gnm_random_graph(10,15)
 
 
-#Essai Yasmine Petit monde
-#Gr=Graphes(15,50)
-#nx.draw(Gr.G)
-#plt.show()
+#Essai Yasmina Petit monde
+Gr=Graphes(15,50)
+nx.draw(Gr.G)
+plt.show()
+L=[1,2,3]
+print L
+print Gr.calcul_cout(2.2, L)
 #print Gr.Dmin
 #print '----'
 #print Gr.Dmin[1]
@@ -67,4 +70,5 @@ plt.show()
 #print len(Gr.Dmin)
 #for cle in dico.keys()
 	#print cle
+#pond=(3,3,1)
 

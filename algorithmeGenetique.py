@@ -9,6 +9,7 @@ from Graphes import Graphes
 from population import population
 import networkx as nx
 import matplotlib.pyplot as plt
+#-----------------------------------------------------------------------
 
 
 
@@ -20,26 +21,31 @@ class algorithmeGenetique :
     
     def __init__(self,gamma_,n,m,Npop,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_) :
         self.gamma = gamma_ 
+        self.pcrois=pcrois_
+        self.pmut=pmut_
         self.nombreIterations = nombreIterations_
         self.pop = self.generePopInit(n,m,Npop,seuilSelection_)
         self.ponderation=ponderation_
-        self.pmut=pmut_
-        self.pcrois=pcrois_
         self.kmut=kmut_
-        
+    
 #    ///// Recuperation des parametres /////
 #    def enterParameters(self, field):
                 
+
+#    ///// Generer la population d'etude /////
     def generePopInit(self,n,m,Npop,seuilSelection):
       Pop=[]
       for i in range(Npop):
         Pop.append(Graphes(n,m))
-      return population(Pop,self.gamma,seuilSelection)
+      return population(Pop,self.gamma,seuilSelection,self.pcrois, self.pmut)
 
+#    ///// Execution de l'algorithme /////
     def loop(self):
       P_crois=self.pop.croisement(1)
       P_mut=self.pop.mutation(P_crois,1,k)
       self.pop.majPopulation(P_mut)
+
+#-----------------------------------------------------------------------
       
 
 
@@ -63,25 +69,26 @@ class algorithmeGenetique :
 #nombreGraphesPopInit_ = param[2]
 #seuilSelection_ = param[3]        
 
+#-----------------------------------------------------------------------
 
 #///// APPEL ///////////////////////////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
-A=algorithmeGenetique(2.2,10,20,10,2,100,[1,1,1],1,1,2)
-
 
 # Essais methodes 
-print "Fitness init : ",A.pop.calculFitness()
+p=[1,2,3]
+A=algorithmeGenetique(2.2,10,20,10,4,100,p,1,1,2)
+print "Fitness init : ",A.pop.calculFitness(p)
+X=A.pop.triFitness(p)
 
-X=A.pop.triFitness()
 Y=[]
 for i in range(len(X)):
-  Y.append(X[i].calcul_cout(2.5))
-print "Fitness triees : ", Y
+  Y.append(X[i].calcul_cout(2.5, p))
+print "Fitness triees : ",Y
 
-X=A.pop.selectionPiresFitness()
+X=A.pop.selectionPiresFitness(p)
 Y=[]
 for i in range(len(X)):
-  Y.append(X[i].calcul_cout(2.5))
+  Y.append(X[i].calcul_cout(2.5, p))
 print "Pires fitness : ",Y
 
 X=A.pop.croisement(1)
@@ -101,3 +108,4 @@ nx.draw(X2[1].G)
 plt.show()
 
   
+#-----------------------------------------------------------------------

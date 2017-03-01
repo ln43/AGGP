@@ -8,44 +8,50 @@
 from Graphes import Graphes
 import numpy as np
 import networkx as nx
+
 #///// LA CLASSE ET SES METHODES ///////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
 
 class population :   
-    def __init__(self, listGraph_, gamma_,seuilSelection_) :
+    def __init__(self, listGraph_, gamma_,seuilSelection_,pCrois_,pMut_) :
         self.pop = listGraph_ # Number of nodes
+        self.pCrois = pCrois_
+        self.pMut = pMut_
         self.Npop=len(self.pop)
         self.gamma=gamma_
         self.seuilSelection = seuilSelection_  #Seuil de selection
+
      
-    def calculFitness(self):
+    def calculFitness(self, ponderation):
         ##### Rajouter mis a jour Pk,Ck,chemin de chaque graphe a chaque pas de temps
         fitnessPop = []
         for i in xrange(len(self.pop)) :
-            fitnessPop.append(self.pop[i].calcul_cout(self.gamma))
+            fitnessPop.append(self.pop[i].calcul_cout(self.gamma, ponderation))
         return fitnessPop
     
-    def triFitness(self):
-        fitnessPop = self.calculFitness()
+    #///// Tri des fitness de la population ///// 
+    def triFitness(self, ponderation):
+        fitnessPop = self.calculFitness(ponderation)
         index = np.argsort(fitnessPop) #Indices des genomes dans ordre croissant
-
-        popTriee = []     #Tableau des genomes de la population triee, TxN
+        popTriee = []                              #Tableau des genomes de la population triee, TxN
         for j in xrange(len(self.pop)) :
             popTriee.append(self.pop[index[j]])
-        return popTriee     #Classes dans ordre croissant de cout
+        return popTriee                           #Classes dans ordre croissant de cout
 
-    def selectionPiresFitness(self):
-        popTriee = self.triFitness()
+
+    #///// Selection des plus mauvaises fitness de la population pour les ameliorer ///// 
+    def selectionPiresFitness(self,ponderation):
+        popTriee = self.triFitness(ponderation)
         popSelectionnee = []      #Tableau des genomes de la population selectionnee TxNs
         for i in range(self.seuilSelection) :
-            popSelectionnee.append(popTriee[self.Npop-1-i])     #Selectionne les cout les plus eleves
-        return popSelectionnee     
+            popSelectionnee.append(popTriee[self.Npop-1-i])   #Selectionne les cout les plus eleves
+        return popSelectionnee
             
-    def croisement(self,pCrois):
+    def croisement(self,ponderation):
         popSelectionnee = self.selectionPiresFitness()
         for g in popSelectionnee:
           proba=np.random.random()
-          if proba<pCrois:
+          if proba<self.pCrois:
             i=np.random.randint(0,len(popSelectionnee))
             while (popSelectionnee[i]==g):
                 i=np.random.randint(0,len(popSelectionnee))
@@ -85,10 +91,10 @@ class population :
             g2.n,g2.m=nx.number_of_nodes(g2.G),nx.number_of_edges(g2.G)
         return popSelectionnee
         
-    def mutation(self,popCroisee,pmut,k):
+    def mutation(self,popCroisee,k):
       for ind in popCroisee:            #Pour chaque individu selectionne
         print ind
-        if np.random.random()<pmut: #Tirage de la probabilite de muter
+        if np.random.random()<self.pmut: #Tirage de la probabilite de muter
           ind.G.add_node(ind.n)
           Deg=0
           for d in ind.G.degree().values():
@@ -102,10 +108,16 @@ class population :
           ind.m=nx.number_of_edges(ind.G)        
       return popCroisee
     
+    #///// Mise a jour de la population /////
     def majPopulation(pop):
-        popTriee = self.triFitness(self.pop)
-        popCroisee = self.croisement(self.pop) #Moitie de la pop
-        pop[self.seuil,len(pop)] = popTriee[0,self.seuil-1]
-        pop[0,self.seuil-1] = popCroisee
+        popTriee = self.triFitness()
+		popCroisee=self.croisement()
+        popMutee = self.mutation(popCroisee)
+        for i in range(self.seuilSelection) :
+            self.pop[self.Npop-1-i].Pk = popCroisee[i].calcul_Pk()
+            self.pop[self.Npop-1-i].Ck = popCroisee[i].calcul_Ck()
+            self.pop[self.Npop-1-i].Dmin = popCroisee[i].calcul_Dmin()
+            self.pop[self.Npop-1-i] = popCroisee[i]
+
 
 #    def comparaison statisques de chaque test au seuil pour le reseau de meilleure fitness
