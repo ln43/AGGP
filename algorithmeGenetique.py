@@ -91,14 +91,14 @@ for i in range(len(X)):
   Y.append(X[i].calcul_cout(2.5, p))
 print "Pires fitness : ",Y
 
-X=A.pop.croisement(1)
+X=A.pop.croisement(p)
 
 plt.subplot(221)
 nx.draw(X[0].G)
 plt.subplot(222)
 nx.draw(X[1].G)
 
-X2=A.pop.mutation(X,1,2)
+X2=A.pop.mutation(X,2)
 
 plt.subplot(223)
 nx.draw(X2[0].G)

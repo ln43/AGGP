@@ -48,7 +48,7 @@ class population :
         return popSelectionnee
             
     def croisement(self,ponderation):
-        popSelectionnee = self.selectionPiresFitness()
+        popSelectionnee = self.selectionPiresFitness(ponderation)
         for g in popSelectionnee:
           proba=np.random.random()
           if proba<self.pCrois:
@@ -94,7 +94,7 @@ class population :
     def mutation(self,popCroisee,k):
       for ind in popCroisee:            #Pour chaque individu selectionne
         print ind
-        if np.random.random()<self.pmut: #Tirage de la probabilite de muter
+        if np.random.random()<self.pMut: #Tirage de la probabilite de muter
           ind.G.add_node(ind.n)
           Deg=0
           for d in ind.G.degree().values():
@@ -111,7 +111,7 @@ class population :
     #///// Mise a jour de la population /////
     def majPopulation(pop):
         popTriee = self.triFitness()
-		popCroisee=self.croisement()
+        popCroisee=self.croisement()
         popMutee = self.mutation(popCroisee)
         for i in range(self.seuilSelection) :
             self.pop[self.Npop-1-i].Pk = popCroisee[i].calcul_Pk()
