@@ -58,10 +58,11 @@ print "Lancement du Main"
 Gr=Graphes(15,50)
 nx.draw(Gr.G)
 plt.show()
-L=[1,2,3]
-print L
+L=[1,1,1]
 print Gr.calcul_cout(2.2, L)
-#print Gr.Dmin
+print Gr.Diam
+print Gr.stat_Diam()
+print Gr.calcul_cout(2.2,L)
 #print '----'
 #print Gr.Dmin[1]
 #print '----'

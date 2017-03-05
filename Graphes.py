@@ -9,6 +9,7 @@
 #///////////////////////////////////////////////////////////////////////
 import networkx as nx
 import numpy as np
+from math import log
 #-----------------------------------------------------------------------
 
 #///////////////////////// CLASSE //////////////////////////////////////
@@ -20,10 +21,9 @@ class Graphes:
     self.G=nx.gnm_random_graph(n_, m_)
     self.Pk=self.calcul_Pk()
     self.Ck=self.calcul_Ck()
-    self.Dmin=self.calcul_Dmin()#retourne matrice avec min distance entre deux noeuds
+    self.Diam=self.calcul_Diam()#retourne diametre du graphe
   
   #///// P[k] = Nombre de noeuds de degre k / Nbr total de noeuds /////
-  #///// Doit suivre une loi de puissance P(k) = k^(-gamma)       /////
   #///// Doit suivre une loi de puissance P(k) = k^(-gamma)       /////
   def calcul_Pk(self):
     P=[0 for i in range(max(nx.degree(self.G).values())+1)]
@@ -44,16 +44,12 @@ class Graphes:
     return C
 
 
-  #///// Calcul du Dmin /////
-  def calcul_Dmin(self):
-			Dm=nx.shortest_path_length(self.G)
-			#L=len(Dm)
-			#l=len(Dm[1])
-			#matrixMin=np.zeros((L,l))
-			#for i in range(0,L):
-			#	for j in range(0,l):
-			#		matrixMin[i,j]=Dm[i][j] 
+  #///// Calcul du Diametre /////
+  # But : verifier propriete petit monde Diam doit etre egal a logN
+  def calcul_Diam(self):
+			Dm=nx.diameter(self.G)
 			return Dm
+
 
   #///// Test statistique des Ck (modelise - theorique)**2 /////
   def stat_Ck(self):
@@ -73,12 +69,19 @@ class Graphes:
     Xsum=sum(X)
     return Xsum
   
-  #///// Calcul du cout /////
+  
+  #///// Test statistique Diametre abs(logN -diam) /////
+  def stat_Diam(self):
+			N=self.n
+			stat= abs(log(N)-self.Diam)
+			return stat
+  
+  #///// Calcul du cout avec ponderation des 3 caracteristiques /////
 
   def calcul_cout(self,gamma, ponderation):
     statPk=self.stat_Pk(gamma)
     statCk=self.stat_Ck()
-    #statchemin
-    return ponderation[0]*statPk+ponderation[1]*statCk+ ponderation[2]
+    statDiam=self.stat_Diam()
+    return ponderation[0]*statPk+ponderation[1]*statCk+ ponderation[2]*statDiam
     
 

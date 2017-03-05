@@ -116,7 +116,7 @@ class population :
         for i in range(self.seuilSelection) :
             self.pop[self.Npop-1-i].Pk = popCroisee[i].calcul_Pk()
             self.pop[self.Npop-1-i].Ck = popCroisee[i].calcul_Ck()
-            self.pop[self.Npop-1-i].Dmin = popCroisee[i].calcul_Dmin()
+            self.pop[self.Npop-1-i].Diam = popCroisee[i].calcul_Diam()
             self.pop[self.Npop-1-i] = popCroisee[i]
 
 
