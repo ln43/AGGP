@@ -5,6 +5,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 
+
+
 #//////////////////////// MAIN //////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
 print "Lancement du Main"
@@ -72,4 +74,8 @@ print Gr.calcul_cout(2.2,L)
 #for cle in dico.keys()
 	#print cle
 #pond=(3,3,1)
+
+
+
+
 

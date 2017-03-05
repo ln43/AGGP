@@ -47,8 +47,8 @@ class Graphes:
   #///// Calcul du Diametre /////
   # But : verifier propriete petit monde Diam doit etre egal a logN
   def calcul_Diam(self):
-			Dm=nx.diameter(self.G)
-			return Dm
+      Dm=nx.diameter(self.G)
+      return Dm
 
 
   #///// Test statistique des Ck (modelise - theorique)**2 /////
@@ -72,9 +72,9 @@ class Graphes:
   
   #///// Test statistique Diametre abs(logN -diam) /////
   def stat_Diam(self):
-			N=self.n
-			stat= abs(log(N)-self.Diam)
-			return stat
+      N=self.n
+      stat= abs(log(N)-self.Diam)
+      return stat
   
   #///// Calcul du cout avec ponderation des 3 caracteristiques /////
 

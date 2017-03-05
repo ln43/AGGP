@@ -27,6 +27,8 @@ class algorithmeGenetique :
         self.pop = self.generePopInit(n,m,Npop,seuilSelection_)
         self.ponderation=ponderation_
         self.kmut=kmut_
+        self.fichierOutput = "outputGamma" + str(self.gamma) + ".txt"
+
     
 #    ///// Recuperation des parametres /////
 #    def enterParameters(self, field):
@@ -41,9 +43,47 @@ class algorithmeGenetique :
 
 #    ///// Execution de l'algorithme /////
     def loop(self):
-      P_crois=self.pop.croisement(1)
-      P_mut=self.pop.mutation(P_crois,1,k)
-      self.pop.majPopulation(P_mut)
+      
+      for i in xrange(nombreIterations_):
+    
+        ## Tri des fitness ##
+        X=self.pop.triFitness(ponderation_)
+        Y=[]
+        for i in range(len(X)):
+            Y.append(X[i].calcul_cout(2.5, ponderation_))
+        print "Fitness triees : ",Y
+    
+        ## Selection des pires fitness ##
+        X=self.pop.selectionPiresFitness(ponderation_)
+        Y=[]
+        for i in range(len(X)):
+            Y.append(X[i].calcul_cout(2.5, ponderation_))
+        print "Pires fitness : ",Y
+    
+        ## Croisement ##
+        X=self.pop.croisement(ponderation_)
+        
+        ## Affichage - Deux figures avant mutation ##
+        plt.subplot(221)
+        nx.draw(X[0].G)
+        plt.subplot(222)
+        nx.draw(X[1].G)
+        
+        ## Mutation ##
+        X2=self.pop.mutation(X,2)
+        
+        ## Affichage - Deux figures apres mutation ##
+        plt.subplot(223)
+        nx.draw(X2[0].G)
+        plt.subplot(224)
+        nx.draw(X2[1].G)
+    
+        plt.show()  
+        
+        ## Mise a jour de la population ##
+        self.pop.majPopulation(X2)
+
+
 
 #-----------------------------------------------------------------------
       
@@ -52,60 +92,37 @@ class algorithmeGenetique :
 #///// FICHIERS LUS ET ECRITS //////////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
 
-#fichierparam = 'parametresEntres.txt'
-#fichierOutput = 'outputGamma + str(self.gamma) + '.txt'
-#
-### Ouverture du fichier ##
-#fichierparam = open(field,'rb')
-#enter = fichierparam.readlines()
-#param = [0]*(len(enter)-5)
-#
-#for i in xrange(5,len(enter)):
-#    param[i-5] = int(enter[i].split("\t")[0])     #Nombre d'iterations
-#
-### Affectation des parametres ##
-#nombreIterations_ = param[0]     #Nombre d'iterations
-#gamma_ = param[1]
-#nombreGraphesPopInit_ = param[2]
-#seuilSelection_ = param[3]        
+field = "parametresEntres.txt"
 
+#///// Ouverture du fichier /////
+fichierparam = open(field,'rb')
+enter = fichierparam.readlines()
+param = [0]*(len(enter)-5)
+
+for i in xrange(5,len(enter)):
+    param[i-5] = enter[i].split("\t")[0]     #Nombre d'iterations
+
+#///// Affectation des parametres /////
+gamma_ = float(param[0])
+nombreGraphesPopInit_ = int(param[1])
+m_ = float(param[2])
+Npop_ = int(param[3])
+seuilSelection_ = int(param[4])
+nombreIterations_ = int(param[5])     #Nombre d'iterations
+ponderation_ = [int(param[6][1]),int(param[6][3]),int(param[6][5])]
+pmut_ = float(param[7])
+pcrois_ = float(param[8])
+kmut_ = float(param[9])
 #-----------------------------------------------------------------------
+
 
 #///// APPEL ///////////////////////////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
 
-# Essais methodes 
-p=[1,2,3]
-A=algorithmeGenetique(2.2,10,20,10,4,100,p,1,1,2)
-print "Fitness init : ",A.pop.calculFitness(p)
-X=A.pop.triFitness(p)
+#///// Creation de l'algorithme genetique /////
+A=algorithmeGenetique(gamma_,nombreGraphesPopInit_,m_,Npop_,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_)
+print "Fitness init : ",A.pop.calculFitness(ponderation_)
 
-Y=[]
-for i in range(len(X)):
-  Y.append(X[i].calcul_cout(2.5, p))
-print "Fitness triees : ",Y
-
-X=A.pop.selectionPiresFitness(p)
-Y=[]
-for i in range(len(X)):
-  Y.append(X[i].calcul_cout(2.5, p))
-print "Pires fitness : ",Y
-
-X=A.pop.croisement(p)
-
-plt.subplot(221)
-nx.draw(X[0].G)
-plt.subplot(222)
-nx.draw(X[1].G)
-
-X2=A.pop.mutation(X,2)
-
-plt.subplot(223)
-nx.draw(X2[0].G)
-plt.subplot(224)
-nx.draw(X2[1].G)
-
-plt.show()
-
-  
+#///// Iterations de l'algorithme /////
+A.loop()
 #-----------------------------------------------------------------------

@@ -23,10 +23,12 @@ class population :
 
      
     def calculFitness(self, ponderation):
-        ##### Rajouter mis a jour Pk,Ck,chemin de chaque graphe a chaque pas de temps
+        ##### Rajouter mis a jour Pk,Ck,chemin de chaque graphe a chaque pas de temps
         fitnessPop = []
         for i in xrange(len(self.pop)) :
+            print "Graphe i=",i
             fitnessPop.append(self.pop[i].calcul_cout(self.gamma, ponderation))
+        print "fitness = ",fitnessPop
         return fitnessPop
     
     #///// Tri des fitness de la population ///// 
@@ -109,15 +111,15 @@ class population :
       return popCroisee
     
     #///// Mise a jour de la population /////
-    def majPopulation(pop):
-        popTriee = self.triFitness()
-        popCroisee=self.croisement()
-        popMutee = self.mutation(popCroisee)
+    def majPopulation(self,popMutee):
+        #popTriee = self.triFitness()
+        #popCroisee = self.croisement()
+        #popMutee = self.mutation(popCroisee)
         for i in range(self.seuilSelection) :
-            self.pop[self.Npop-1-i].Pk = popCroisee[i].calcul_Pk()
-            self.pop[self.Npop-1-i].Ck = popCroisee[i].calcul_Ck()
-            self.pop[self.Npop-1-i].Diam = popCroisee[i].calcul_Diam()
-            self.pop[self.Npop-1-i] = popCroisee[i]
+            self.pop[self.Npop-1-i].Pk = popMutee[i].calcul_Pk()
+            self.pop[self.Npop-1-i].Ck = popMutee[i].calcul_Ck()
+            self.pop[self.Npop-1-i].Diam = popMutee[i].calcul_Diam()
+            self.pop[self.Npop-1-i] = popMutee[i]
 
 
 #    def comparaison statisques de chaque test au seuil pour le reseau de meilleure fitness
