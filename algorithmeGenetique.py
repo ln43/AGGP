@@ -45,40 +45,40 @@ class algorithmeGenetique :
     def loop(self):
       
       for i in xrange(nombreIterations_):
-    
+        self.pop.pop=self.pop.triFitness(self.ponderation)
         ## Tri des fitness ##
-        X=self.pop.triFitness(ponderation_)
-        Y=[]
-        for i in range(len(X)):
-            Y.append(X[i].calcul_cout(2.5, ponderation_))
-        print "Fitness triees : ",Y
+        #~ X=self.pop.triFitness(ponderation_)
+        #~ Y=[]
+        #~ for i in range(len(X)):
+            #~ Y.append(X[i].calcul_cout(2.5, ponderation_))
+        #~ print "Fitness triees : ",Y
     
         ## Selection des pires fitness ##
-        X=self.pop.selectionPiresFitness(ponderation_)
-        Y=[]
-        for i in range(len(X)):
-            Y.append(X[i].calcul_cout(2.5, ponderation_))
-        print "Pires fitness : ",Y
+        #~ X=self.pop.selectionPiresFitness(ponderation_)
+        #~ Y=[]
+        #~ for i in range(len(X)):
+            #~ Y.append(X[i].calcul_cout(2.5, ponderation_))
+        #~ print "Pires fitness : ",Y
     
         ## Croisement ##
-        X=self.pop.croisement(ponderation_)
+        X=self.pop.croisement(self.ponderation)
         
         ## Affichage - Deux figures avant mutation ##
-        plt.subplot(221)
-        nx.draw(X[0].G)
-        plt.subplot(222)
-        nx.draw(X[1].G)
+        #~ plt.subplot(221)
+        #~ nx.draw(X[0].G)
+        #~ plt.subplot(222)
+        #~ nx.draw(X[1].G)
         
         ## Mutation ##
         X2=self.pop.mutation(X,2)
         
         ## Affichage - Deux figures apres mutation ##
-        plt.subplot(223)
-        nx.draw(X2[0].G)
-        plt.subplot(224)
-        nx.draw(X2[1].G)
-    
-        plt.show()  
+        #~ plt.subplot(223)
+        #~ nx.draw(X2[0].G)
+        #~ plt.subplot(224)
+        #~ nx.draw(X2[1].G)
+    #~ 
+        #~ plt.show()  
         
         ## Mise a jour de la population ##
         self.pop.majPopulation(X2)
