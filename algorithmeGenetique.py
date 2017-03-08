@@ -30,10 +30,6 @@ class algorithmeGenetique :
         self.kmut=kmut_
         self.fichierOutput = "outputGamma" + str(self.gamma) + ".txt"
 
-    
-#    ///// Recuperation des parametres /////
-#    def enterParameters(self, field):
-                
 
 #    ///// Generer la population d'etude /////
     def generePopInit(self,n,m,Npop,seuilSelection):
@@ -44,43 +40,14 @@ class algorithmeGenetique :
 
 #    ///// Execution de l'algorithme /////
     def loop(self):
-      
       for i in xrange(nombreIterations_):
+        print "Iteration ",i
+        ## Tri de la population par fitness ##
         self.pop.pop=self.pop.triFitness(self.ponderation)
-        ## Tri des fitness ##
-        #~ X=self.pop.triFitness(ponderation_)
-        #~ Y=[]
-        #~ for i in range(len(X)):
-            #~ Y.append(X[i].calcul_cout(2.5, ponderation_))
-        #~ print "Fitness triees : ",Y
-    
-        ## Selection des pires fitness ##
-        #~ X=self.pop.selectionPiresFitness(ponderation_)
-        #~ Y=[]
-        #~ for i in range(len(X)):
-            #~ Y.append(X[i].calcul_cout(2.5, ponderation_))
-        #~ print "Pires fitness : ",Y
-    
-        ## Croisement ##
+        ## Selection et croisement des pires graphes de la population ##
         X=self.pop.croisement(self.ponderation)
-        
-        ## Affichage - Deux figures avant mutation ##
-        #~ plt.subplot(221)
-        #~ nx.draw(X[0].G)
-        #~ plt.subplot(222)
-        #~ nx.draw(X[1].G)
-        
-        ## Mutation ##
+        ## Mutation de la population selectionnee ##
         X2=self.pop.mutation(X,2)
-        
-        ## Affichage - Deux figures apres mutation ##
-        #~ plt.subplot(223)
-        #~ nx.draw(X2[0].G)
-        #~ plt.subplot(224)
-        #~ nx.draw(X2[1].G)
-    #~ 
-        #~ plt.show()  
-        
         ## Mise a jour de la population ##
         self.pop.majPopulation(X2)
 
@@ -157,7 +124,7 @@ A=algorithmeGenetique(gamma_,n_,m_,Npop_,seuilSelection_,nombreIterations_,ponde
 print "Fitness init : ",A.pop.calculFitness(ponderation_)
 
 #///// Iterations de l'algorithme /////
-#A.loop()
+A.loop()
 #-----------------------------------------------------------------------
 
 #///// Affichage, solution finale /////

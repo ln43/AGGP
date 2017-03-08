@@ -26,7 +26,6 @@ class population :
         fitnessPop = []
         for i in xrange(len(self.pop)) :
             fitnessPop.append(self.pop[i].calcul_cout(self.gamma, ponderation))
-        print "fitness = ",fitnessPop
         return fitnessPop
     
     #///// Tri des fitness de la population ///// 
@@ -47,13 +46,14 @@ class population :
         return popSelectionnee
             
     def croisement(self,ponderation):
+        print "Croisement"
         popSelectionnee = self.selectionPiresFitness(ponderation)
         for g in popSelectionnee:
           proba=np.random.random()
           if proba<self.pCrois:
             i=np.random.randint(0,len(popSelectionnee))
             while (popSelectionnee[i]==g):
-                i=np.random.randint(0,len(popSelectionnee))
+              i=np.random.randint(0,len(popSelectionnee))
             g2=popSelectionnee[i]
             noeuds1=np.random.choice(g.G.nodes(),int(g.n/2),replace=False)
             noeudsopp1=filter(lambda x: x not in noeuds1, g.G.nodes())
@@ -91,8 +91,8 @@ class population :
         return popSelectionnee
         
     def mutation(self,popCroisee,k):
+      print "Mutation"
       for ind in popCroisee:            #Pour chaque individu selectionne
-        print ind
         if np.random.random()<self.pMut: #Tirage de la probabilite de muter
           ind.G.add_node(ind.n)
           Deg=0
@@ -109,14 +109,15 @@ class population :
     
     #///// Mise a jour de la population /////
     def majPopulation(self,popMutee):
-        #popTriee = self.triFitness()
-        #popCroisee = self.croisement()
-        #popMutee = self.mutation(popCroisee)
-        for i in range(self.seuilSelection) :
-            self.pop[self.Npop-1-i].Pk = popMutee[i].calcul_Pk()
-            self.pop[self.Npop-1-i].Ck = popMutee[i].calcul_Ck()
-            self.pop[self.Npop-1-i].Diam = popMutee[i].calcul_Diam()
-            self.pop[self.Npop-1-i] = popMutee[i]
+      print "Mise a jour pop"
+      #popTriee = self.triFitness()
+      #popCroisee = self.croisement()
+      #popMutee = self.mutation(popCroisee)
+      for i in range(self.seuilSelection) :
+          self.pop[self.Npop-1-i].Pk = popMutee[i].calcul_Pk()
+          self.pop[self.Npop-1-i].Ck = popMutee[i].calcul_Ck()
+          self.pop[self.Npop-1-i].Diam = popMutee[i].calcul_Diam()
+          self.pop[self.Npop-1-i] = popMutee[i]
 
 
 #    def comparaison statisques de chaque test au seuil pour le reseau de meilleure fitness
