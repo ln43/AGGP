@@ -104,7 +104,7 @@ for i in xrange(5,len(enter)):
 
 #///// Affectation des parametres /////
 gamma_ = float(param[0])
-nombreGraphesPopInit_ = int(param[1])
+n_ = int(param[1])
 m_ = float(param[2])
 Npop_ = int(param[3])
 seuilSelection_ = int(param[4])
@@ -120,7 +120,7 @@ kmut_ = float(param[9])
 #///////////////////////////////////////////////////////////////////////
 
 #///// Creation de l'algorithme genetique /////
-A=algorithmeGenetique(gamma_,nombreGraphesPopInit_,m_,Npop_,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_)
+A=algorithmeGenetique(gamma_,n_,m_,Npop_,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_)
 print "Fitness init : ",A.pop.calculFitness(ponderation_)
 
 #///// Iterations de l'algorithme /////
