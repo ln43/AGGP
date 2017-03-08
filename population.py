@@ -23,10 +23,8 @@ class population :
 
      
     def calculFitness(self, ponderation):
-        ##### Rajouter mis a jour Pk,Ck,chemin de chaque graphe a chaque pas de temps
         fitnessPop = []
         for i in xrange(len(self.pop)) :
-            print "Graphe i=",i
             fitnessPop.append(self.pop[i].calcul_cout(self.gamma, ponderation))
         print "fitness = ",fitnessPop
         return fitnessPop
@@ -43,10 +41,9 @@ class population :
 
     #///// Selection des plus mauvaises fitness de la population pour les ameliorer ///// 
     def selectionPiresFitness(self,ponderation):
-        popTriee = self.triFitness(ponderation)
         popSelectionnee = []      #Tableau des genomes de la population selectionnee TxNs
         for i in range(self.seuilSelection) :
-            popSelectionnee.append(popTriee[self.Npop-1-i])   #Selectionne les cout les plus eleves
+            popSelectionnee.append(self.pop[self.Npop-1-i])   #Selectionne les cout les plus eleves
         return popSelectionnee
             
     def croisement(self,ponderation):

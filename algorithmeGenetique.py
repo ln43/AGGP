@@ -83,7 +83,19 @@ class algorithmeGenetique :
         ## Mise a jour de la population ##
         self.pop.majPopulation(X2)
 
-
+  # Selectionne le graphe optimal et l'affiche
+    def select_optimal(self):
+      self.pop.pop=self.pop.triFitness(self.ponderation)
+      Gopt=self.pop.pop[0]
+      #plt.subplots(211)
+      print Gopt.Pk
+      Pktheo=[i**(-self.gamma) for i in range(1,len(Gopt.Pk))]
+      plt.scatter(range(len(Gopt.Pk)),Gopt.Pk)
+      plt.plot(range(1,len(Gopt.Pk)),Pktheo)
+      plt.show()
+      #plt.subplots(212)
+      plt.scatter(range(len(Gopt.Ck)),Gopt.Ck)
+      plt.show()
 
 #-----------------------------------------------------------------------
       
@@ -124,5 +136,8 @@ A=algorithmeGenetique(gamma_,n_,m_,Npop_,seuilSelection_,nombreIterations_,ponde
 print "Fitness init : ",A.pop.calculFitness(ponderation_)
 
 #///// Iterations de l'algorithme /////
-A.loop()
+#A.loop()
 #-----------------------------------------------------------------------
+
+#///// Affichage, solution finale /////
+A.select_optimal()

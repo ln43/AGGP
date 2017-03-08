@@ -5,7 +5,7 @@ Valeur	| Signification
 ------------------------------------------------------------------------
 2.2	Gamma
 10	n
-20	m
+40	m
 10	Npop
 4	Seuil de sélection
 100	Nombre d'itérations
