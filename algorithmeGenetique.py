@@ -9,6 +9,7 @@ from Graphes import Graphes
 from population import population
 import networkx as nx
 import matplotlib.pyplot as plt
+import numpy as np
 #-----------------------------------------------------------------------
 
 
@@ -85,17 +86,37 @@ class algorithmeGenetique :
 
   # Selectionne le graphe optimal et l'affiche
     def select_optimal(self):
+      print " \n AFFICHAGE DE LA SOLUTION OPTIMALE \n "
       self.pop.pop=self.pop.triFitness(self.ponderation)
       Gopt=self.pop.pop[0]
-      #plt.subplots(211)
-      print Gopt.Pk
+      
+      plt.figure()
+      
+      plt.subplot(211)
       Pktheo=[i**(-self.gamma) for i in range(1,len(Gopt.Pk))]
       plt.scatter(range(len(Gopt.Pk)),Gopt.Pk)
-      plt.plot(range(1,len(Gopt.Pk)),Pktheo)
-      plt.show()
-      #plt.subplots(212)
+      plt.plot(range(1,len(Gopt.Pk)),Pktheo,'r-')
+      plt.title("Distribution des P(k)")
+      plt.xlabel("degre")
+      plt.ylabel("P(k)")
+      
+      plt.subplot(212)
+      Cktheo=[i**(-1) for i in range(1,len(Gopt.Ck))]
       plt.scatter(range(len(Gopt.Ck)),Gopt.Ck)
+      plt.plot(range(1,len(Gopt.Ck)),Cktheo,'r-')
+      plt.title("Distribution des C(k)")
+      plt.xlabel("degre")
+      plt.ylabel("C(k)")
+      
       plt.show()
+      
+      print "Diametre du graphe optimal : ", Gopt.Diam
+      print "Diametre loi du petit monde : ", np.log(Gopt.n)
+      
+      nx.draw(Gopt.G)
+      plt.title("Graphe optimal")
+      plt.show()
+
 
 #-----------------------------------------------------------------------
       
