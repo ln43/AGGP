@@ -18,7 +18,8 @@ class Graphes:
   def __init__(self,n_,m_):
     self.n=n_ # Number of nodes
     self.m=m_ # Number of edges
-    self.G=nx.gnm_random_graph(n_, m_)
+    self.G=self.connected_Graph(nx.gnm_random_graph(self.n, self.m))
+    #~ self.G=nx.gnm_random_graph(n_, m_)
     self.Pk=self.calcul_Pk()
     self.Ck=self.calcul_Ck()
     self.Diam=self.calcul_Diam()#retourne diametre du graphe
@@ -84,4 +85,12 @@ class Graphes:
     statDiam=self.stat_Diam()
     return ponderation[0]*statPk+ponderation[1]*statCk+ ponderation[2]*statDiam
     
-
+  def connected_Graph(self, Gr):
+    if(nx.is_connected(Gr)):
+      return Gr
+    else :
+      N=list(nx.connected_components(Gr))  
+      for i in range(len(N)-1) :
+        Gr.add_edge(list(N[i])[0], list(N[i+1])[0])
+      return Gr
+    

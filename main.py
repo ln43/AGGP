@@ -57,7 +57,7 @@ print "Lancement du Main"
 
 
 #Essai Yasmina Petit monde
-Gr=Graphes(15,50)
+Gr=Graphes(15,15)
 nx.draw(Gr.G)
 plt.show()
 L=[1,1,1]
@@ -75,7 +75,11 @@ print Gr.calcul_cout(2.2,L)
 	#print cle
 #pond=(3,3,1)
 
-
+#~ G=nx.gnm_random_graph(15, 5)
+#~ N=sorted(nx.connected_components(G), key = len, reverse=True)
+#~ print type(N)
+#~ print N
+#~ print len(N) 
 
 
 
