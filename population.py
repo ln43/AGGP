@@ -106,7 +106,8 @@ class population :
             if np.random.random()<(k*ind.G.degree(n)*1.0/Deg):
               ind.G.add_edge(n,ind.n-1)
               Deg+=1
-          ind.m=nx.number_of_edges(ind.G)        
+          ind.G=ind.connected_Graph(ind.G)    
+          ind.m=nx.number_of_edges(ind.G)      
       return popCroisee
     
     #///// Mise a jour de la population /////
