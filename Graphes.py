@@ -19,7 +19,6 @@ class Graphes:
     self.n=n_ # Number of nodes
     self.m=m_ # Number of edges
     self.G=self.connected_Graph(nx.gnm_random_graph(self.n, self.m))
-    #~ self.G=nx.gnm_random_graph(n_, m_)
     self.Pk=self.calcul_Pk()
     self.Ck=self.calcul_Ck()
     self.Diam=self.calcul_Diam()#retourne diametre du graphe
@@ -37,11 +36,12 @@ class Graphes:
   #///// Moyenne sur i de (2*Nombre d’arêtes liant les nœuds adjacents de i entre eux / (degre du noeud k * (degre du noeud k - 1))) /////
   #///// Doit suivre une loi C(k) = k^(-1)                                                                                           /////
   def calcul_Ck(self):
-    clust=nx.clustering(self.G)
     C=[0 for i in range(max(nx.degree(self.G).values())+1)]
+    nb_noeud_deg_i=[0 for i in range(max(nx.degree(self.G).values())+1)]
     for c,i in nx.degree(self.G).items():
       C[i]+=nx.clustering(self.G,c)
-    C=np.asarray(C)*1.0/nx.number_of_nodes(self.G)
+      nb_noeud_deg_i[i]+=1 #nombre de noeud de degre i
+    C=np.asarray(C)*1.0/np.asarray(nb_noeud_deg_i)
     return C
 
 

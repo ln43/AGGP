@@ -79,6 +79,7 @@ class algorithmeGenetique :
       
       print "Diametre du graphe optimal : ", Gopt.Diam
       print "Diametre loi du petit monde : ", np.log(Gopt.n)
+      print "Statistique final : ", Gopt.calcul_cout(self.gamma,self.ponderation,)
       
       nx.draw(Gopt.G)
       plt.title("Graphe optimal")
