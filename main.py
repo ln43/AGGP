@@ -57,7 +57,7 @@ print "Lancement du Main"
 
 
 #Essai Yasmina Petit monde
-Gr=Graphes(15,5)
+Gr=Graphes(10000,10000)
 nx.draw(Gr.G)
 plt.show()
 L=[1,1,1]
