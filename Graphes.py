@@ -41,7 +41,9 @@ class Graphes:
     for c,i in nx.degree(self.G).items():
       C[i]+=nx.clustering(self.G,c)
       nb_noeud_deg_i[i]+=1 #nombre de noeud de degre i
-    C=np.asarray(C)*1.0/np.asarray(nb_noeud_deg_i)
+    for i in range(len(C)):
+      if nb_noeud_deg_i[i]!=0:
+        C[i]=C[i]*1.0/nb_noeud_deg_i[i]
     return C
 
 
