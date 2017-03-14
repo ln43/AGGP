@@ -76,25 +76,27 @@ class population :
             newg1=nx.compose(g.G.subgraph(noeuds1),g2.G.subgraph(noeudsopp2))
             newg2=nx.compose(g2.G.subgraph(noeuds2),g.G.subgraph(noeudsopp1))
 
+            #Ajout des aretes manquantes a newg1
             i=0
             while i<min(m1,len(noeuds1)*len(noeudsopp2)):
               e=(np.random.choice(noeuds1,1),np.random.choice(noeudsopp2,1))
               if e not in newg1.edges():
                 newg1.add_edge(int(e[0]),int(e[1]))
                 i=i+1
-            g.G=nx.convert_node_labels_to_integers(newg1)
-            g.G=g.connected_Graph(g.G)
-            g.n,g.m=nx.number_of_nodes(g.G),nx.number_of_edges(g.G)
-            
+            g.G=nx.convert_node_labels_to_integers(newg1) #renommer les noeuds
+            g.G=g.connected_Graph(g.G) # verifier qu'il est connecte
+            g.n,g.m=nx.number_of_nodes(g.G),nx.number_of_edges(g.G) # mise a jour du nombre de noeud et arete
+
+            #Ajout des aretes manquantes a newg2     
             i=0
             while i<min(m2,len(noeuds2)*len(noeudsopp1)):
               e=(np.random.choice(noeuds2,1),np.random.choice(noeudsopp1,1))
               if e not in newg2.edges():
                 newg2.add_edge(int(e[0]),int(e[1]))
                 i=i+1   
-            g2.G=nx.convert_node_labels_to_integers(newg2)
-            g2.G=g2.connected_Graph(g2.G)
-            g2.n,g2.m=nx.number_of_nodes(g2.G),nx.number_of_edges(g2.G)
+            g2.G=nx.convert_node_labels_to_integers(newg2) #renommer les noeuds
+            g2.G=g2.connected_Graph(g2.G) # verifier qu'il est connecte
+            g2.n,g2.m=nx.number_of_nodes(g2.G),nx.number_of_edges(g2.G) # mise a jour du nombre de noeud et arete
         return popSelectionnee
         
     def mutation(self,popCroisee,k):
