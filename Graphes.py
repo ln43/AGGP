@@ -18,7 +18,9 @@ class Graphes:
   def __init__(self,n_,m_):
     self.n=n_ # Number of nodes
     self.m=m_ # Number of edges
-    self.G=self.connected_Graph(nx.gnm_random_graph(self.n, self.m))
+    #self.G=self.connected_Graph(nx.gnm_random_graph(self.n, self.m))
+    self.G=self.connected_Graph(nx.barabasi_albert_graph(self.n, (self.m/self.n) ))
+    #self.G=self.connected_Graph(nx.powerlaw_cluster_graph(self.n, 2,1))
     self.Pk=self.calcul_Pk()
     self.Ck=self.calcul_Ck()
     self.Diam=self.calcul_Diam()#retourne diametre du graphe
@@ -95,8 +97,7 @@ class Graphes:
       for i in range(len(N)-1) :
 								L1=len(list(N[i]))
 								L2=len(list(N[i+1]))
-								print L1, L2
-								print np.random.randint(0,L1)
 								Gr.add_edge(list(N[i])[np.random.randint(0,L1)], list(N[i+1])[np.random.randint(0,L2)])
+								self.m=Gr.number_of_edges()								
       return Gr
     

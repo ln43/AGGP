@@ -57,14 +57,42 @@ print "Lancement du Main"
 
 
 #Essai Yasmina Petit monde
-Gr=Graphes(10,10)
-nx.draw(Gr.G)
-plt.show()
-L=[1,1,1]
-print Gr.calcul_cout(2.2, L)
-print Gr.Diam
-print Gr.stat_Diam()
-print Gr.calcul_cout(2.2,L)
+#~ Gr=Graphes(1000,3000)
+#~ L=[1,1,1]
+#~ print "Notre pgraphe de barabasi"
+#~ print Gr.calcul_cout(2.2, L)
+
+
+
+#~ Gr.G=Gr.connected_Graph(nx.gnm_random_graph(1000, 1000))
+#~ Gr.n, Gr.m = Gr.G.number_of_nodes(),Gr.G.number_of_edges()
+#~ Gr.Ck=Gr.calcul_Ck()
+#~ Gr.Pk=Gr.calcul_Pk()
+#~ Gr.Diam=Gr.calcul_Diam()
+#~ print "Graphe aleatoire"
+#~ print Gr.calcul_cout(2.2, L)
+
+
+
+#~ Gr.G=Gr.connected_Graph(nx.barabasi_albert_graph(1000, 3))
+#~ Gr.n, Gr.m = Gr.G.number_of_nodes(),Gr.G.number_of_edges()
+#~ Gr.Ck=Gr.calcul_Ck()
+#~ Gr.Pk=Gr.calcul_Pk()
+#~ Gr.Diam=Gr.calcul_Diam()
+#~ print "Graphe Barab"
+#~ print Gr.calcul_cout(2.2, L)
+
+#~ Gr.G=Gr.connected_Graph(nx.powerlaw_cluster_graph(1000,1,0.5))
+#~ Gr.n, Gr.m = Gr.G.number_of_nodes(),Gr.G.number_of_edges()
+#~ print Gr.n, Gr.m
+#~ Gr.Ck=Gr.calcul_Ck()
+#~ Gr.Pk=Gr.calcul_Pk()
+#~ Gr.Diam=Gr.calcul_Diam()
+#~ print "Graphe modele"
+#~ print Gr.calcul_cout(2.2, L)
+
+
+
 #print '----'
 #print Gr.Dmin[1]
 #print '----'
