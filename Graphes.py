@@ -19,7 +19,7 @@ class Graphes:
     self.n=n_ # Number of nodes
     self.m=m_ # Number of edges
     #self.G=self.connected_Graph(nx.gnm_random_graph(self.n, self.m))
-    self.G=self.connected_Graph(nx.barabasi_albert_graph(self.n, (self.m/self.n) ))
+    self.G=self.connected_Graph(nx.barabasi_albert_graph(self.n, 2))
     #self.G=self.connected_Graph(nx.powerlaw_cluster_graph(self.n, 2,1))
     self.Pk=self.calcul_Pk()
     self.Ck=self.calcul_Ck()
