@@ -93,6 +93,10 @@ class Graphes:
     else :
       N=list(nx.connected_components(Gr))  
       for i in range(len(N)-1) :
-        Gr.add_edge(list(N[i])[0], list(N[i+1])[0])
+								L1=len(list(N[i]))
+								L2=len(list(N[i+1]))
+								print L1, L2
+								print np.random.randint(0,L1)
+								Gr.add_edge(list(N[i])[np.random.randint(0,L1)], list(N[i+1])[np.random.randint(0,L2)])
       return Gr
     
