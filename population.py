@@ -146,7 +146,6 @@ class population :
       return popCroisee
     
     #///// Mise a jour de la population /////
-<<<<<<< HEAD
     def majPopulation(self,popMutee,f,ponderation):
       print "Mise a jour population"
       
@@ -187,15 +186,6 @@ class population :
       ## Ecriture ## 
       f.writelines(str(min_Pk) + "\t" + str(min_Ck) + "\t"+ str(min_Dmin) + "\t"+ str(min_Cout) + "\n")
       #return [min_Pk, min_Ck, min_Dmin]
-=======
-    def majPopulation(self,popMutee):
-      print "Mise a jour pop"
-      for i in range(self.seuilSelection) :
-          self.pop[self.Npop-1-i].Pk = popMutee[i].calcul_Pk()
-          self.pop[self.Npop-1-i].Ck = popMutee[i].calcul_Ck()
-          self.pop[self.Npop-1-i].Diam = popMutee[i].calcul_Diam()
-          self.pop[self.Npop-1-i] = popMutee[i]
->>>>>>> origin/master
 
 
 #    def comparaison statisques de chaque test au seuil pour le reseau de meilleure fitness
