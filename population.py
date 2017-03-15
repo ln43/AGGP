@@ -8,6 +8,7 @@
 from Graphes import Graphes
 import numpy as np
 import networkx as nx
+import random
 
 #///// LA CLASSE ET SES METHODES ///////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
@@ -102,7 +103,8 @@ class population :
     def mutation(self,popCroisee,k):
       print "Mutation"
       for ind in popCroisee:            #Pour chaque individu selectionne
-        if np.random.random()<self.pMut: #Tirage de la probabilite de muter
+        proba=np.random.random()//self.pMut
+        if proba==0: #Proba de rajouter un noeud
           ind.G.add_node(ind.n)
           Deg=0
           for d in ind.G.degree().values():
@@ -114,10 +116,37 @@ class population :
               ind.G.add_edge(n,ind.n-1)
               Deg+=1
           ind.G=ind.connected_Graph(ind.G)    
-          ind.m=nx.number_of_edges(ind.G)      
+          ind.m=nx.number_of_edges(ind.G)
+        elif proba==1: # Proba de supprimer un noeud
+          ind.G.remove_node(int(np.random.choice(ind.G.nodes(),1)))
+          ind.G=ind.connected_Graph(ind.G)
+          ind.n=ind.n-1
+          ind.m=nx.number_of_edges(ind.G)
+        elif proba==2: # Proba de supprimer une arete
+          e=random.choice(ind.G.edges())
+          ind.G.remove_edge(e[0],e[1])
+          ind.G=ind.connected_Graph(ind.G)
+          ind.m=nx.number_of_edges(ind.G)
+        elif proba==3: # Proba de rajouter une arete
+          if ind.m<ind.n*(ind.n-1)/2:
+            deg_max=[]
+            Max=max(ind.G.degree().values())
+            index=len(ind.G.degree().values())-1
+            while Max==(ind.n-1):
+              index=index-1
+              Max=sorted(ind.G.degree().values())[index]
+            for i in ind.G.nodes():
+              if ind.G.degree()[i]==Max:
+                deg_max.append(i)
+            e=tuple(np.random.choice(deg_max,2))
+            while e in ind.G.edges():
+              e=tuple(np.random.choice(deg_max,2))
+            ind.G.add_edge(e[0],e[1])
+            ind.m=ind.m+1
       return popCroisee
     
     #///// Mise a jour de la population /////
+<<<<<<< HEAD
     def majPopulation(self,popMutee,f,ponderation):
       print "Mise a jour population"
       
@@ -158,6 +187,15 @@ class population :
       ## Ecriture ## 
       f.writelines(str(min_Pk) + "\t" + str(min_Ck) + "\t"+ str(min_Dmin) + "\t"+ str(min_Cout) + "\n")
       #return [min_Pk, min_Ck, min_Dmin]
+=======
+    def majPopulation(self,popMutee):
+      print "Mise a jour pop"
+      for i in range(self.seuilSelection) :
+          self.pop[self.Npop-1-i].Pk = popMutee[i].calcul_Pk()
+          self.pop[self.Npop-1-i].Ck = popMutee[i].calcul_Ck()
+          self.pop[self.Npop-1-i].Diam = popMutee[i].calcul_Diam()
+          self.pop[self.Npop-1-i] = popMutee[i]
+>>>>>>> origin/master
 
 
 #    def comparaison statisques de chaque test au seuil pour le reseau de meilleure fitness

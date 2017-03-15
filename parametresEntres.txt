@@ -4,12 +4,12 @@
 Valeur	| Signification
 ------------------------------------------------------------------------
 2.2	Gamma
-100	n
-220	m
-50	Npop
-20	Seuil de sélection
+20	n
+35	m
+5	Npop
+2	Seuil de sélection
 25	Nombre d'itérations
 [1,1,1]	Pondérations
-1	Pmut
+0.2	Pmut
 1	Pcrois
 2	Kmut

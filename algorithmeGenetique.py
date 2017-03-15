@@ -54,7 +54,7 @@ class algorithmeGenetique :
         ## Selection et croisement des pires graphes de la population ##
         X=self.pop.croisement(self.ponderation)
         ## Mutation de la population selectionnee ##
-        X2=self.pop.mutation(X,2)
+        X2=self.pop.mutation(X,self.kmut)
         ## Mise a jour de la population ##
         self.pop.majPopulation(X2,f,self.ponderation)
 
