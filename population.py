@@ -118,16 +118,46 @@ class population :
       return popCroisee
     
     #///// Mise a jour de la population /////
-    def majPopulation(self,popMutee):
-      print "Mise a jour pop"
-      #popTriee = self.triFitness()
-      #popCroisee = self.croisement()
-      #popMutee = self.mutation(popCroisee)
-      for i in range(self.seuilSelection) :
-          self.pop[self.Npop-1-i].Pk = popMutee[i].calcul_Pk()
-          self.pop[self.Npop-1-i].Ck = popMutee[i].calcul_Ck()
-          self.pop[self.Npop-1-i].Diam = popMutee[i].calcul_Diam()
-          self.pop[self.Npop-1-i] = popMutee[i]
+    def majPopulation(self,popMutee,f,ponderation):
+      print "Mise a jour population"
+      
+      
+			## Mise a jour de la population modifiee ##
+      for i in range(1,self.seuilSelection) :
+        
+        self.pop[self.Npop-1-i].Pk = popMutee[i].calcul_Pk()
+        self.pop[self.Npop-1-i].Ck = popMutee[i].calcul_Ck()
+        self.pop[self.Npop-1-i].Diam = popMutee[i].calcul_Diam()
+        self.pop[self.Npop-1-i] = popMutee[i]
+      
+      
+      min_Pk = self.pop[0].stat_Pk(self.gamma)
+      min_Ck = self.pop[0].stat_Ck()
+      min_Dmin = self.pop[0].stat_Diam()
+      min_Cout = self.pop[0].calcul_cout(self.gamma, ponderation)
+      print min_Cout
+
+			## Recherche des statistiques de la population en fin d'iteration ##
+      for i in xrange(1,len(self.pop)):
+				  
+        statPk = self.pop[i].stat_Pk(self.gamma)
+        statCk = self.pop[i].stat_Ck()
+        statDmin = self.pop[i].stat_Diam()
+        cout = self.pop[i].calcul_cout(self.gamma,ponderation)
+        
+        if statPk < min_Pk :
+          min_Pk = statPk
+        if statCk < min_Ck :
+          min_Ck = statCk
+        if statDmin < min_Dmin :
+          min_Dmin = statDmin
+        if cout < min_Cout :
+					min_Cout = cout
+					
+
+      ## Ecriture ## 
+      f.writelines(str(min_Pk) + "\t" + str(min_Ck) + "\t"+ str(min_Dmin) + "\t"+ str(min_Cout) + "\n")
+      #return [min_Pk, min_Ck, min_Dmin]
 
 
 #    def comparaison statisques de chaque test au seuil pour le reseau de meilleure fitness

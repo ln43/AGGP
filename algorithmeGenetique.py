@@ -20,7 +20,7 @@ import numpy as np
 
 class algorithmeGenetique :
     
-    def __init__(self,gamma_,n,m,Npop,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_) :
+    def __init__(self,gamma_,n,m,Npop,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_,output_field_) :
         self.gamma = gamma_ 
         self.pcrois=pcrois_
         self.pmut=pmut_
@@ -28,7 +28,7 @@ class algorithmeGenetique :
         self.pop = self.generePopInit(n,m,Npop,seuilSelection_)
         self.ponderation=ponderation_
         self.kmut=kmut_
-        self.fichierOutput = "outputGamma" + str(self.gamma) + ".txt"
+        self.fichierOutput = output_field_ + "_gamma" + str(self.gamma) + ".txt"
 
 
 #    ///// Generer la population d'etude /////
@@ -40,8 +40,15 @@ class algorithmeGenetique :
 
 #    ///// Execution de l'algorithme /////
     def loop(self):
+      
+      control = []
+      iterations = []
+      f = open(self.fichierOutput,'w')
+      f.writelines("min_Pk\t min_Ck\t min_Diam\t min_Cout\n")
+      print "\n--- EXECUTION ---"
+    
       for i in xrange(nombreIterations_):
-        print "Iteration ",i
+        print "\n- Iteration ",i," -"
         ## Tri de la population par fitness ##
         self.pop.pop=self.pop.triFitness(self.ponderation)
         ## Selection et croisement des pires graphes de la population ##
@@ -49,11 +56,11 @@ class algorithmeGenetique :
         ## Mutation de la population selectionnee ##
         X2=self.pop.mutation(X,2)
         ## Mise a jour de la population ##
-        self.pop.majPopulation(X2)
+        self.pop.majPopulation(X2,f,self.ponderation)
 
   # Selectionne le graphe optimal et l'affiche
     def select_optimal(self):
-      print " \n AFFICHAGE DE LA SOLUTION OPTIMALE \n "
+      print " \n--- AFFICHAGE DE LA SOLUTION OPTIMALE ---\n "
       self.pop.pop=self.pop.triFitness(self.ponderation)
       Gopt=self.pop.pop[0]
       
@@ -64,7 +71,7 @@ class algorithmeGenetique :
       plt.scatter(range(len(Gopt.Pk)),Gopt.Pk)
       plt.plot(range(1,len(Gopt.Pk)),Pktheo,'r-')
       plt.title("Distribution des P(k)")
-      plt.xlabel("degre")
+      plt.xlabel("Degre")
       plt.ylabel("P(k)")
       
       plt.subplot(212)
@@ -72,14 +79,14 @@ class algorithmeGenetique :
       plt.scatter(range(len(Gopt.Ck)),Gopt.Ck)
       plt.plot(range(1,len(Gopt.Ck)),Cktheo,'r-')
       plt.title("Distribution des C(k)")
-      plt.xlabel("degre")
+      plt.xlabel("Degre")
       plt.ylabel("C(k)")
       
-      plt.show()
       
       print "Diametre du graphe optimal : ", Gopt.Diam
       print "Diametre loi du petit monde : ", np.log(Gopt.n)
       print "Statistique final : ", Gopt.calcul_cout(self.gamma,self.ponderation,)
+      plt.show()
       
       nx.draw(Gopt.G)
       plt.title("Graphe optimal")
@@ -114,6 +121,7 @@ ponderation_ = [int(param[6][1]),int(param[6][3]),int(param[6][5])]
 pmut_ = float(param[7])
 pcrois_ = float(param[8])
 kmut_ = float(param[9])
+output_field_ = str(param[10])
 #-----------------------------------------------------------------------
 
 
@@ -121,8 +129,8 @@ kmut_ = float(param[9])
 #///////////////////////////////////////////////////////////////////////
 
 #///// Creation de l'algorithme genetique /////
-A=algorithmeGenetique(gamma_,n_,m_,Npop_,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_)
-print "Fitness init : ",A.pop.calculFitness(ponderation_)
+A=algorithmeGenetique(gamma_,n_,m_,Npop_,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_,output_field_)
+print "\n--- POPULATION INITIALE ---\nFitness init : ",A.pop.calculFitness(ponderation_)
 
 #///// Iterations de l'algorithme /////
 A.loop()
