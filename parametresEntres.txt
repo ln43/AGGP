@@ -13,3 +13,5 @@ Valeur	| Signification
 0.2	Pmut
 1	Pcrois
 2	Kmut
+Output	Nom fichier out
+
