@@ -15,12 +15,12 @@ from math import log
 #///////////////////////// CLASSE //////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
 class Graphes:
-  def __init__(self,n_,m_):
+  def __init__(self,n_,p_):
     self.n=n_ # Number of nodes
-    self.m=m_ # Number of edges
     #self.G=self.connected_Graph(nx.gnm_random_graph(self.n, self.m))
-    self.G=self.connected_Graph(nx.barabasi_albert_graph(self.n, 2))
+    self.G=self.connected_Graph(nx.barabasi_albert_graph(self.n, p_))
     #self.G=self.connected_Graph(nx.powerlaw_cluster_graph(self.n, 2,1))
+    self.m=self.G.number_of_edges()			 # Number of edges
     self.Pk=self.calcul_Pk()
     self.Ck=self.calcul_Ck()
     self.Diam=self.calcul_Diam()#retourne diametre du graphe

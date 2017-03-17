@@ -20,22 +20,22 @@ import numpy as np
 
 class algorithmeGenetique :
     
-    def __init__(self,gamma_,n,m,Npop,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_,output_field_) :
+    def __init__(self,gamma_,n,p,Npop,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_,output_field_) :
         self.gamma = gamma_ 
         self.pcrois=pcrois_
         self.pmut=pmut_
         self.nombreIterations = nombreIterations_
-        self.pop = self.generePopInit(n,m,Npop,seuilSelection_)
+        self.pop = self.generePopInit(n,p,Npop,seuilSelection_)
         self.ponderation=ponderation_
         self.kmut=kmut_
         self.fichierOutput = output_field_ + "_gamma" + str(self.gamma) + ".txt"
 
 
 #    ///// Generer la population d'etude /////
-    def generePopInit(self,n,m,Npop,seuilSelection):
+    def generePopInit(self,n,p,Npop,seuilSelection):
       Pop=[]
       for i in range(Npop):
-        Pop.append(Graphes(n,m))
+        Pop.append(Graphes(n,p))
       return population(Pop,self.gamma,seuilSelection,self.pcrois, self.pmut)
 
 #    ///// Execution de l'algorithme /////
@@ -113,7 +113,7 @@ for i in xrange(5,len(enter)):
 #///// Affectation des parametres /////
 gamma_ = float(param[0])
 n_ = int(param[1])
-m_ = float(param[2])
+p_ = int(param[2])
 Npop_ = int(param[3])
 seuilSelection_ = int(param[4])
 nombreIterations_ = int(param[5])     #Nombre d'iterations
@@ -129,7 +129,7 @@ output_field_ = str(param[10])
 #///////////////////////////////////////////////////////////////////////
 
 #///// Creation de l'algorithme genetique /////
-A=algorithmeGenetique(gamma_,n_,m_,Npop_,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_,output_field_)
+A=algorithmeGenetique(gamma_,n_,p_,Npop_,seuilSelection_,nombreIterations_,ponderation_,pmut_,pcrois_,kmut_,output_field_)
 print "\n--- POPULATION INITIALE ---\nFitness init : ",A.pop.calculFitness(ponderation_)
 
 #///// Iterations de l'algorithme /////
