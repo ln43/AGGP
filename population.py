@@ -129,18 +129,9 @@ class population :
           ind.m=nx.number_of_edges(ind.G)
         elif proba==3: # Proba de rajouter une arete
           if ind.m<ind.n*(ind.n-1)/2:
-            deg_max=[]
-            Max=max(ind.G.degree().values())
-            index=len(ind.G.degree().values())-1
-            while Max==(ind.n-1):
-              index=index-1
-              Max=sorted(ind.G.degree().values())[index]
-            for i in ind.G.nodes():
-              if ind.G.degree()[i]==Max:
-                deg_max.append(i)
-            e=tuple(np.random.choice(deg_max,2))
+            e=tuple(np.random.choice(ind.G.nodes(),2))
             while e in ind.G.edges():
-              e=tuple(np.random.choice(deg_max,2))
+              e=tuple(np.random.choice(ind.G.nodes(),2))
             ind.G.add_edge(e[0],e[1])
             ind.m=ind.m+1
       return popCroisee

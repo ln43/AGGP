@@ -4,14 +4,14 @@
 Valeur	| Signification
 ------------------------------------------------------------------------
 2.2	Gamma
-20	n
-35	m
-5	Npop
-2	Seuil de sélection
+100	n
+2	p
+50	Npop
+25	Seuil de sélection
 25	Nombre d'itérations
-[1,1,1]	Pondérations
+[0.3,0.5,0.2]	Pondérations
 0.2	Pmut
-1	Pcrois
+0.8	Pcrois
 2	Kmut
 Output	Nom fichier out
 
