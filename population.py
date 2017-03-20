@@ -49,13 +49,16 @@ class population :
     def croisement(self,ponderation):
         print "Croisement"
         popSelectionnee = self.selectionPiresFitness(ponderation)
+        gcrois=[]
         for g in popSelectionnee:
           proba=np.random.random()
-          if proba<self.pCrois:
+          if proba<self.pCrois and (g not in gcrois):
+            gcrois.append(g)
             i=np.random.randint(0,len(popSelectionnee))
             while (popSelectionnee[i]==g):
               i=np.random.randint(0,len(popSelectionnee))
             g2=popSelectionnee[i]
+            gcrois.append(gcrois)
             
             #Scinder les noeuds de g en deux groupes
             noeuds1=np.random.choice(g.G.nodes(),int(g.n/2),replace=False)
