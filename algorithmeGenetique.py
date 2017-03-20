@@ -44,7 +44,7 @@ class algorithmeGenetique :
       control = []
       iterations = []
       f = open(self.fichierOutput,'w')
-      f.writelines("min_Pk\t min_Ck\t min_Diam\t min_Cout\n")
+      f.writelines("min_Pk\t min_Ck\t min_Diam\t min_Cout\t moy_Cout\n")
       print "\n--- EXECUTION ---"
     
       for i in xrange(nombreIterations_):

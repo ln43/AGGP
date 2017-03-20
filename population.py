@@ -173,9 +173,9 @@ class population :
         if cout < min_Cout :
 					min_Cout = cout
 					
-
+      moy_Cout= np.mean(self.calculFitness(ponderation))
       ## Ecriture ## 
-      f.writelines(str(min_Pk) + "\t" + str(min_Ck) + "\t"+ str(min_Dmin) + "\t"+ str(min_Cout) + "\n")
+      f.writelines(str(min_Pk) + "\t" + str(min_Ck) + "\t"+ str(min_Dmin) + "\t"+ str(min_Cout) +"\t"+str(moy_Cout)+"\n")
       #return [min_Pk, min_Ck, min_Dmin]
 
 
