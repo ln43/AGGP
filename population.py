@@ -50,16 +50,12 @@ class population :
         print "Croisement"
         popSelectionnee = self.selectionPiresFitness(ponderation)
         gcrois=[]
-        for g in popSelectionnee:
+        while len(popSelectionnee)>1:
           proba=np.random.random()
-          if proba<self.pCrois and (g not in gcrois):
-            gcrois.append(g)
-            i=np.random.randint(0,len(popSelectionnee))
-            while (popSelectionnee[i]==g):
-              i=np.random.randint(0,len(popSelectionnee))
-            g2=popSelectionnee[i]
-            gcrois.append(gcrois)
-            
+          g=popSelectionnee.pop(0)
+          if proba<self.pCrois:
+            g2=random.choice(popSelectionnee)
+            popSelectionnee.remove(g2)            
             #Scinder les noeuds de g en deux groupes
             noeuds1=np.random.choice(g.G.nodes(),int(g.n/2),replace=False)
             noeudsopp1=filter(lambda x: x not in noeuds1, g.G.nodes())
@@ -74,7 +70,7 @@ class population :
             #Scinder les noeuds de g2 en deux groupes
             noeuds2=np.random.choice(g2.G.nodes(),int(g2.n/2),replace=False)
             noeudsopp2=filter(lambda x: x not in noeuds2, g2.G.nodes())
-            m2=g2.m-nx.number_of_edges(g2.G.subgraph(noeuds2))-nx.number_of_edges(g.G.subgraph(noeudsopp2))
+            m2=g2.m-nx.number_of_edges(g2.G.subgraph(noeuds2))-nx.number_of_edges(g2.G.subgraph(noeudsopp2))
             
             #Creation de deux nouveaux graphes
             newg1=nx.compose(g.G.subgraph(noeuds1),g2.G.subgraph(noeudsopp2))
@@ -101,7 +97,11 @@ class population :
             g2.G=nx.convert_node_labels_to_integers(newg2) #renommer les noeuds
             g2.G=g2.connected_Graph(g2.G) # verifier qu'il est connecte
             g2.n,g2.m=nx.number_of_nodes(g2.G),nx.number_of_edges(g2.G) # mise a jour du nombre de noeud et arete
-        return popSelectionnee
+            gcrois.append(g2)
+          gcrois.append(g)
+        if len(popSelectionnee)==1:
+          gcrois.append(popSelectionnee.pop(0))
+        return gcrois
         
     def mutation(self,popCroisee,k):
       print "Mutation"
