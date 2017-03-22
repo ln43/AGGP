@@ -9,6 +9,7 @@ from Graphes import Graphes
 import numpy as np
 import networkx as nx
 import random
+import matplotlib.pyplot as plt
 
 #///// LA CLASSE ET SES METHODES ///////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////
@@ -45,7 +46,17 @@ class population :
         for i in range(self.seuilSelection) :
             popSelectionnee.append(self.pop[self.Npop-1-i])   #Selectionne les cout les plus eleves
         return popSelectionnee
-            
+          
+    def new_subgraph(self,g,nodes):
+      subG1=nx.Graph()
+      subG1.add_nodes_from(nodes)
+      Edges=[]
+      for e in g.G.edges():
+        if e[0] in nodes and e[1] in nodes:
+          Edges.append(e)
+      subG1.add_edges_from(Edges)
+      return subG1
+          
     def croisement(self,ponderation):
         print "Croisement"
         popSelectionnee = self.selectionPiresFitness(ponderation)
@@ -55,30 +66,43 @@ class population :
           g=popSelectionnee.pop(0)
           if proba<self.pCrois:
             g2=random.choice(popSelectionnee)
-            popSelectionnee.remove(g2)            
+            popSelectionnee.remove(g2)
+            M=g.m+g2.m
             #Scinder les noeuds de g en deux groupes
             noeuds1=np.random.choice(g.G.nodes(),int(g.n/2),replace=False)
             noeudsopp1=filter(lambda x: x not in noeuds1, g.G.nodes())
-            m1=g.m-nx.number_of_edges(g.G.subgraph(noeuds1))-nx.number_of_edges(g.G.subgraph(noeudsopp1))
+            subG1=g.G.subgraph(noeuds1)
+            subGopp1=g.G.subgraph(noeudsopp1)
+            if len(subG1.nodes())==0:
+              subG1=self.new_subgraph(g,noeuds1)
+            if len(subGopp1.nodes())==0:
+              subGopp1=self.new_subgraph(g,noeudsopp1)
+            m1=g.m-nx.number_of_edges(subG1)-nx.number_of_edges(subGopp1)           
             
             #Renommer noeud de g2
             mapping={}
-            for i in range(g2.n):
-              mapping[i]=i+g.n
+            for i in range(g2.G.number_of_nodes()):
+              mapping[i]=i+2*g.G.number_of_nodes()
             g2.G=nx.relabel_nodes(g2.G,mapping)
             
             #Scinder les noeuds de g2 en deux groupes
             noeuds2=np.random.choice(g2.G.nodes(),int(g2.n/2),replace=False)
             noeudsopp2=filter(lambda x: x not in noeuds2, g2.G.nodes())
-            m2=g2.m-nx.number_of_edges(g2.G.subgraph(noeuds2))-nx.number_of_edges(g2.G.subgraph(noeudsopp2))
+            subG2=g2.G.subgraph(noeuds2)
+            subGopp2=g2.G.subgraph(noeudsopp2)
+            if len(subG2.nodes())==0:
+              subG2=self.new_subgraph(g2,noeuds2)
+            if len(subGopp2.nodes())==0:
+              subGopp1=self.new_subgraph(g2,noeudsopp2)
+            m2=g2.m-nx.number_of_edges(subG2)-nx.number_of_edges(subGopp2)               
             
             #Creation de deux nouveaux graphes
-            newg1=nx.compose(g.G.subgraph(noeuds1),g2.G.subgraph(noeudsopp2))
-            newg2=nx.compose(g2.G.subgraph(noeuds2),g.G.subgraph(noeudsopp1))
+            newg1=nx.compose(subG1,subGopp2)
+            newg2=nx.compose(subG2,subGopp1)
 
             #Ajout des aretes manquantes a newg1
             i=0
-            while i<min(m1,len(noeuds1)*len(noeudsopp2)):
+            while i<=min(m1,len(noeuds1)*len(noeudsopp2)):
               e=(np.random.choice(noeuds1,1),np.random.choice(noeudsopp2,1))
               if e not in newg1.edges():
                 newg1.add_edge(int(e[0]),int(e[1]))
@@ -86,19 +110,27 @@ class population :
             g.G=nx.convert_node_labels_to_integers(newg1) #renommer les noeuds
             g.G=g.connected_Graph(g.G) # verifier qu'il est connecte
             g.n,g.m=nx.number_of_nodes(g.G),nx.number_of_edges(g.G) # mise a jour du nombre de noeud et arete
-
             #Ajout des aretes manquantes a newg2     
             i=0
-            while i<min(m2,len(noeuds2)*len(noeudsopp1)):
+            while i<=min(m2,len(noeuds2)*len(noeudsopp1)):
               e=(np.random.choice(noeuds2,1),np.random.choice(noeudsopp1,1))
               if e not in newg2.edges():
                 newg2.add_edge(int(e[0]),int(e[1]))
-                i=i+1   
+                i=i+1
             g2.G=nx.convert_node_labels_to_integers(newg2) #renommer les noeuds
             g2.G=g2.connected_Graph(g2.G) # verifier qu'il est connecte
             g2.n,g2.m=nx.number_of_nodes(g2.G),nx.number_of_edges(g2.G) # mise a jour du nombre de noeud et arete
+            glist=[g,g2]
+#            while g.m+g2.m<M:
+#              gch=random.choice(glist)
+#              e=tuple(np.random.choice(gch.G.nodes(),2))
+#              gch.G.add_edge(e[0],e[1])
+#              gch.m=gch.G.number_of_edges()
+#            
             gcrois.append(g2)
           gcrois.append(g)
+          
+            
         if len(popSelectionnee)==1:
           gcrois.append(popSelectionnee.pop(0))
         return gcrois
@@ -120,17 +152,17 @@ class population :
               Deg+=1
           ind.G=ind.connected_Graph(ind.G)    
           ind.m=nx.number_of_edges(ind.G)
-        elif proba==1: # Proba de supprimer un noeud
-          ind.G.remove_node(int(np.random.choice(ind.G.nodes(),1)))
-          ind.G=ind.connected_Graph(ind.G)
-          ind.n=ind.n-1
-          ind.m=nx.number_of_edges(ind.G)
+        #~ elif proba==3: # Proba de supprimer un noeud
+          #~ ind.G.remove_node(int(np.random.choice(ind.G.nodes(),1)))
+          #~ ind.G=ind.connected_Graph(ind.G)
+          #~ ind.n=ind.n-1
+          #~ ind.m=nx.number_of_edges(ind.G)
         elif proba==2: # Proba de supprimer une arete
           e=random.choice(ind.G.edges())
           ind.G.remove_edge(e[0],e[1])
           ind.G=ind.connected_Graph(ind.G)
           ind.m=nx.number_of_edges(ind.G)
-        elif proba==3: # Proba de rajouter une arete
+        elif proba==1: # Proba de rajouter une arete
           if ind.m<ind.n*(ind.n-1)/2:
             e=tuple(np.random.choice(ind.G.nodes(),2))
             while e in ind.G.edges():

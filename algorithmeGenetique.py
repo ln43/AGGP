@@ -28,7 +28,7 @@ class algorithmeGenetique :
         self.pop = self.generePopInit(n,p,Npop,seuilSelection_)
         self.ponderation=ponderation_
         self.kmut=kmut_
-        self.fichierOutput = output_field_ + "_gamma" + str(self.gamma) + ".txt"
+        self.fichierOutput = output_field_ + ".txt"
 
 
 #    ///// Generer la population d'etude /////
@@ -40,9 +40,6 @@ class algorithmeGenetique :
 
 #    ///// Execution de l'algorithme /////
     def loop(self):
-      
-      control = []
-      iterations = []
       f = open(self.fichierOutput,'w')
       f.writelines("min_Pk\t min_Ck\t min_Diam\t min_Cout\t moy_Cout\n")
       print "\n--- EXECUTION ---"
@@ -57,6 +54,10 @@ class algorithmeGenetique :
         X2=self.pop.mutation(X,self.kmut)
         ## Mise a jour de la population ##
         self.pop.majPopulation(X2,f,self.ponderation)
+        nodes=[self.pop.pop[i].n for i in range(len(self.pop.pop))]
+        print np.mean(nodes),min(nodes)
+        edges=[self.pop.pop[i].m for i in range(len(self.pop.pop))]
+        print np.mean(edges),min(edges)
 
   # Selectionne le graphe optimal et l'affiche
     def select_optimal(self):
