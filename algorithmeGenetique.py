@@ -54,10 +54,10 @@ class algorithmeGenetique :
         X2=self.pop.mutation(X,self.kmut)
         ## Mise a jour de la population ##
         self.pop.majPopulation(X2,f,self.ponderation)
-        nodes=[self.pop.pop[i].n for i in range(len(self.pop.pop))]
-        print np.mean(nodes),min(nodes)
-        edges=[self.pop.pop[i].m for i in range(len(self.pop.pop))]
-        print np.mean(edges),min(edges)
+        #~ nodes=[self.pop.pop[i].n for i in range(len(self.pop.pop))]
+        #~ print np.mean(nodes),min(nodes)
+        #~ edges=[self.pop.pop[i].m for i in range(len(self.pop.pop))]
+        #~ print np.mean(edges),min(edges)
 
   # Selectionne le graphe optimal et l'affiche
     def select_optimal(self):
