@@ -120,13 +120,6 @@ class population :
             g2.G=nx.convert_node_labels_to_integers(newg2) #renommer les noeuds
             g2.G=g2.connected_Graph(g2.G) # verifier qu'il est connecte
             g2.n,g2.m=nx.number_of_nodes(g2.G),nx.number_of_edges(g2.G) # mise a jour du nombre de noeud et arete
-            glist=[g,g2]
-#            while g.m+g2.m<M:
-#              gch=random.choice(glist)
-#              e=tuple(np.random.choice(gch.G.nodes(),2))
-#              gch.G.add_edge(e[0],e[1])
-#              gch.m=gch.G.number_of_edges()
-#            
             gcrois.append(g2)
           gcrois.append(g)
           
@@ -152,11 +145,11 @@ class population :
               Deg+=1
           ind.G=ind.connected_Graph(ind.G)    
           ind.m=nx.number_of_edges(ind.G)
-        #~ elif proba==3: # Proba de supprimer un noeud
-          #~ ind.G.remove_node(int(np.random.choice(ind.G.nodes(),1)))
-          #~ ind.G=ind.connected_Graph(ind.G)
-          #~ ind.n=ind.n-1
-          #~ ind.m=nx.number_of_edges(ind.G)
+        elif proba==3: # Proba de supprimer un noeud
+          ind.G.remove_node(int(np.random.choice(ind.G.nodes(),1)))
+          ind.G=ind.connected_Graph(ind.G)
+          ind.n=ind.n-1
+          ind.m=nx.number_of_edges(ind.G)
         elif proba==2: # Proba de supprimer une arete
           e=random.choice(ind.G.edges())
           ind.G.remove_edge(e[0],e[1])
